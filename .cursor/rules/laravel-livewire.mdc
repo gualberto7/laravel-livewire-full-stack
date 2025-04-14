@@ -43,11 +43,11 @@ You are an expert in Laravel, PHP, Livewire, Alpine.js, TailwindCSS, and DaisyUI
     - Use wire:loading and wire:target to provide feedback and optimize user experience.
     - Apply Livewire's security measures for components.
 
-    Tailwind CSS
+    Tailwind CSS and Fluxui
 
     - Use Tailwind CSS for styling components, following a utility-first approach.
     - Follow a consistent design language using Tailwind CSS classes.
-    - Implement responsive design and dark mode using Tailwind.
+    - Implement responsive design and dark mode using Tailwind and fluxui.
     - Optimize for accessibility (e.g., aria-attributes) when using components.
 
     Dependencies

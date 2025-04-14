@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\Subscription;
+use App\Models\Gym;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Subscription;
+use Livewire\Attributes\On;
 
 class Subscriptions extends Component
 {
@@ -14,6 +16,7 @@ class Subscriptions extends Component
     public $sortField = 'start_date';
     public $sortDirection = 'desc';
     public $perPage = 10;
+    public $currentGym;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -21,6 +24,19 @@ class Subscriptions extends Component
         'sortDirection' => ['except' => 'desc'],
         'page' => ['except' => 1],
     ];
+
+    public function mount()
+    {
+        // Obtener el gimnasio actual del usuario autenticado
+        $this->currentGym = auth()->user()->getCurrentGym();
+    }
+
+    #[On('gym-changed')]
+    public function updateCurrentGym($gymId)
+    {
+        $this->currentGym = Gym::find($gymId);
+        $this->resetPage();
+    }
 
     public function sortBy($field)
     {
@@ -39,8 +55,17 @@ class Subscriptions extends Component
 
     public function render()
     {
+        // Si no hay gimnasio actual, mostrar un mensaje
+        if (!$this->currentGym) {
+            return view('livewire.subscriptions', [
+                'subscriptions' => collect([]),
+                'currentGym' => null
+            ]);
+        }
+
         $subscriptions = Subscription::query()
             ->with(['client', 'membership', 'gym'])
+            ->where('gym_id', $this->currentGym->id)
             ->when($this->search, function ($query) {
                 $query->whereHas('client', function ($q) {
                     $q->where('name', 'like', '%' . $this->search . '%');
@@ -54,6 +79,7 @@ class Subscriptions extends Component
 
         return view('livewire.subscriptions', [
             'subscriptions' => $subscriptions,
+            'currentGym' => $this->currentGym
         ]);
     }
 }

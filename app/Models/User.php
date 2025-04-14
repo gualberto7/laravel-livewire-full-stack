@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -123,5 +124,81 @@ class User extends Authenticatable
     public function hasRoleInGym(Gym $gym, string $role): bool
     {
         return $this->getRoleInGym($gym) === $role;
+    }
+
+    /**
+     * Get the user's preferences.
+     */
+    public function preferences(): HasMany
+    {
+        return $this->hasMany(UserPreference::class);
+    }
+
+    /**
+     * Get a specific preference value.
+     */
+    public function getPreference(string $key, $default = null)
+    {
+        $cacheKey = "user.{$this->id}.preference.{$key}";
+        
+        return Cache::remember($cacheKey, now()->addHours(24), function () use ($key, $default) {
+            $preference = $this->preferences()->where('key', $key)->first();
+            return $preference ? $preference->value : $default;
+        });
+    }
+
+    /**
+     * Set a preference value.
+     */
+    public function setPreference(string $key, $value): void
+    {
+        $cacheKey = "user.{$this->id}.preference.{$key}";
+        
+        $this->preferences()->updateOrCreate(
+            ['key' => $key],
+            ['value' => $value]
+        );
+        
+        Cache::forget($cacheKey);
+    }
+
+    /**
+     * Get the current gym for the user.
+     */
+    public function getCurrentGym()
+    {
+        $gymId = $this->getPreference('current_gym_id');
+        
+        if (!$gymId) {
+            // Si no hay preferencia, intentar obtener el primer gimnasio
+            $gym = $this->ownedGyms()->first() ?? $this->staffGyms()->first();
+            
+            if ($gym) {
+                $this->setPreference('current_gym_id', $gym->id);
+                return $gym;
+            }
+            
+            return null;
+        }
+        
+        return Gym::find($gymId);
+    }
+
+    /**
+     * Set the current gym for the user.
+     */
+    public function setCurrentGym(Gym $gym): void
+    {
+        // Verificar que el usuario tenga acceso al gimnasio
+        if ($this->ownsGym($gym) || $this->isStaffOfGym($gym)) {
+            $this->setPreference('current_gym_id', $gym->id);
+        }
+    }
+
+    protected $listeners = ['gym-changed' => 'updateCurrentGym'];
+    
+    public function updateCurrentGym($gymId)
+    {
+        // Actualizar el componente
     }
 }

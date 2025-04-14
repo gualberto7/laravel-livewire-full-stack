@@ -1,12 +1,14 @@
 <div>
     <div class="py-6">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-            <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Suscripciones</h1>
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Suscripciones</h1>
+            </div>
         </div>
         <div class="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
             <div class="py-4">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <div class="mb-4 sm:mb-0">
+                    <div class="w-1/3 mb-4 sm:mb-0">
                         <div class="relative rounded-md shadow-sm">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -120,9 +122,6 @@
                                         </span>
                                     </button>
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-zinc-400">
-                                    Gimnasio
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:bg-zinc-900 dark:divide-zinc-700">
@@ -140,13 +139,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400">
                                         {{ $subscription->end_date ? $subscription->end_date : 'N/A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400">
-                                        {{ $subscription->gym->name ?? 'N/A' }}
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400 text-center">
+                                    <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400 text-center">
                                         No se encontraron suscripciones.
                                     </td>
                                 </tr>
