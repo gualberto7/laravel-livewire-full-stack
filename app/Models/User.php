@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -56,5 +60,68 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    /**
+     * Get the gyms owned by the user.
+     */
+    public function ownedGyms(): HasMany
+    {
+        return $this->hasMany(Gym::class, 'owner_id');
+    }
+
+    /**
+     * Get the gyms where the user is a staff member.
+     */
+    public function staffGyms(): BelongsToMany
+    {
+        return $this->belongsToMany(Gym::class)
+            ->withPivot('role', 'is_active')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get all gyms associated with the user (both owned and staff).
+     */
+    public function allGyms()
+    {
+        return $this->ownedGyms->merge($this->staffGyms);
+    }
+
+    /**
+     * Check if the user owns a specific gym.
+     */
+    public function ownsGym(Gym $gym): bool
+    {
+        return $this->ownedGyms()->where('id', $gym->id)->exists();
+    }
+
+    /**
+     * Check if the user is a staff member of a specific gym.
+     */
+    public function isStaffOfGym(Gym $gym): bool
+    {
+        return $this->staffGyms()->where('gym_id', $gym->id)->exists();
+    }
+
+    /**
+     * Get the role of the user in a specific gym.
+     */
+    public function getRoleInGym(Gym $gym): ?string
+    {
+        if ($this->ownsGym($gym)) {
+            return 'owner';
+        }
+
+        $staffRelation = $this->staffGyms()->where('gym_id', $gym->id)->first();
+        return $staffRelation ? $staffRelation->pivot->role : null;
+    }
+
+    /**
+     * Check if the user has a specific role in a gym.
+     */
+    public function hasRoleInGym(Gym $gym, string $role): bool
+    {
+        return $this->getRoleInGym($gym) === $role;
     }
 }
