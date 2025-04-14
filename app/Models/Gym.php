@@ -140,4 +140,9 @@ class Gym extends Model
             'is_active' => true,
         ]);
     }
+
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(Membership::class);
+    }
 }
