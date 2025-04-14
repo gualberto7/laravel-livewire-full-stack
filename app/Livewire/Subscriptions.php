@@ -2,11 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Subscription;
 use App\Models\Gym;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Subscription;
-use Livewire\Attributes\On;
 
 class Subscriptions extends Component
 {
@@ -29,13 +28,6 @@ class Subscriptions extends Component
     {
         // Obtener el gimnasio actual del usuario autenticado
         $this->currentGym = auth()->user()->getCurrentGym();
-    }
-
-    #[On('gym-changed')]
-    public function updateCurrentGym($gymId)
-    {
-        $this->currentGym = Gym::find($gymId);
-        $this->resetPage();
     }
 
     public function sortBy($field)

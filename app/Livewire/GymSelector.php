@@ -24,17 +24,16 @@ class GymSelector extends Component
         
         if ($gym) {
             auth()->user()->setCurrentGym($gym);
-            $this->currentGym = $gym;
             
-            // Emitir evento para que otros componentes sepan que cambió el gimnasio
-            $this->dispatch('gym-changed', gymId: $gym->id)->to('subscriptions');
-            
-            // Mostrar notificación de éxito
-            $this->dispatch('notify', [
+            // Mostrar notificación de éxito y redireccionar
+            session()->flash('notify', [
                 'title' => 'Gimnasio actualizado',
                 'message' => "Has cambiado al gimnasio: {$gym->name}",
                 'type' => 'success',
             ]);
+            
+            // Redireccionar al dashboard para recargar todos los datos
+            return $this->redirect(route('dashboard'), navigate: true);
         }
     }
 
