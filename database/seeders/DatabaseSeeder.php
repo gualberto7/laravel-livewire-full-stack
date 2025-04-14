@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Gym;
 use App\Models\Membership;
+use App\Models\Subscription;
 
 class DatabaseSeeder extends Seeder
 {
@@ -50,13 +51,24 @@ class DatabaseSeeder extends Seeder
 
         $gym->users()->attach($testUser, ['role' => 'admin']);
         
-        Membership::factory()->create([
+        $membership = Membership::factory()->create([
             'name' => 'Mensual',
             'price' => 200,
             'duration' => 30,
             'description' => 'Membership 1 description',
             'gym_id' => $gym->id,
         ]);
-        
+
+        for ($i = 1; $i <= 20; $i++) {
+            Subscription::factory()->create([
+                'start_date' => now(),
+                'end_date' => now()->addDays(30),
+                'created_by' => 'seeder',
+                'updated_by' => 'seeder',
+                'client_id' => $i,
+                'membership_id' => $membership->id,
+                'gym_id' => $gym->id,
+            ]);
+        }
     }
 }
