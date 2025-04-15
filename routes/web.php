@@ -30,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::view('check-ins', 'check-ins')
         ->middleware(['auth', 'verified'])
         ->name('check-ins');
+
+    Route::view('memberships', 'memberships')
+        ->middleware(['auth', 'verified'])
+        ->name('memberships');
 });
 
 require __DIR__.'/auth.php';
