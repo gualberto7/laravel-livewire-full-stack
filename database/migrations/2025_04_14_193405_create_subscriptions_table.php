@@ -17,9 +17,9 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('created_by');
             $table->string('updated_by');
-            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained();
             $table->foreignId('membership_id')->constrained();
-            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('gym_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
