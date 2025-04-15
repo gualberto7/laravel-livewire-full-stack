@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
     Route::view('subscriptions/create', 'createSubscription')
         ->middleware(['auth', 'verified'])
         ->name('createSubscription');
+
+    Route::view('check-ins', 'check-ins')
+        ->middleware(['auth', 'verified'])
+        ->name('check-ins');
 });
 
 require __DIR__.'/auth.php';
