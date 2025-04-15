@@ -6,6 +6,7 @@ use App\Models\Subscription;
 use App\Models\Gym;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Client;
 
 class Subscriptions extends Component
 {
@@ -45,6 +46,12 @@ class Subscriptions extends Component
         $this->resetPage();
     }
 
+    public function registerCheckIn($clientId)
+    {
+        $client = Client::find($clientId);
+        $client->checkIn($this->currentGym->id, auth()->user()->name);
+    }
+    
     public function render()
     {
         // Si no hay gimnasio actual, mostrar un mensaje
@@ -56,7 +63,7 @@ class Subscriptions extends Component
         }
 
         $subscriptions = Subscription::query()
-            ->with(['client', 'membership', 'gym'])
+            ->with(['client', 'membership'])
             ->where('gym_id', $this->currentGym->id)
             ->when($this->search, function ($query) {
                 $query->whereHas('client', function ($q) {

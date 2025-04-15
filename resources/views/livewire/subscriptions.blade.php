@@ -1,24 +1,22 @@
 <div>
-    <div class="py-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div class="w-1/3 mb-4 sm:mb-0">
-                <div class="relative rounded-md shadow-sm">
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input wire:model.live.debounce.300ms="search" type="text" class="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-zinc-800 dark:text-white dark:ring-zinc-700 dark:placeholder:text-zinc-500" placeholder="Buscar por cliente o membresía...">
+    <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-4">
+            <div class="flex gap-x-4">
+                <div class="flex-1">
+                    <flux:input 
+                        wire:model.live.debounce.500ms="search" 
+                        placeholder="Buscar por nombre o membresía..." />
                 </div>
             </div>
-            <div>
-                <select wire:model.live="perPage" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-zinc-800 dark:text-white dark:ring-zinc-700">
-                    <option value="5">5 por página</option>
-                    <option value="10">10 por página</option>
-                    <option value="25">25 por página</option>
-                    <option value="50">50 por página</option>
-                </select>
-            </div>
+        </div>
+        <div>
+            <flux:select>
+                @foreach ([10, 15, 30, 50] as $value)
+                    <flux:select.option wire:click="$set('perPage', {{ $value }})" :active="$perPage === $value">
+                        {{ $value }} por página
+                    </flux:select.option>
+                @endforeach
+            </flux:select>
         </div>
     </div>
 
@@ -28,17 +26,17 @@
                 <x-gc.th sortable :sorted="$sortField === 'client_id'" :direction="$sortDirection" wire:click="sortBy('client_id')">
                     Cliente
                 </x-gc.th>
-                <x-gc.th sortable :sorted="$sortField === 'membership_id'" :direction="$sortDirection" wire:click="sortBy('membership_id')">
+                <x-gc.th>
                     Membresía
                 </x-gc.th>
-                <x-gc.th sortable :sorted="$sortField === 'start_date'" :direction="$sortDirection" wire:click="sortBy('start_date')">
-                    Fecha Inicio
-                </x-gc.th>
-                <x-gc.th sortable :sorted="$sortField === 'end_date'" :direction="$sortDirection" wire:click="sortBy('end_date')">
+                <x-gc.th>
                     Fecha Fin
                 </x-gc.th>
                 <x-gc.th>
                     Estado
+                </x-gc.th>
+                <x-gc.th>
+                    Acciones
                 </x-gc.th>
             </tr>
         </x-slot:header>
@@ -52,15 +50,17 @@
                     {{ $subscription->membership->name ?? 'N/A' }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $subscription->start_date->format('d/m/Y') ?? 'N/A' }}
-                </x-gc.td>
-                <x-gc.td>
                     {{ $subscription->end_date->format('d/m/Y') ?? 'N/A' }}
                 </x-gc.td>
                 <x-gc.td>
                     <flux:badge :color="$subscription->getStatusColor()">
                         {{ ucfirst($subscription->getStatus()) }}
                     </flux:badge>
+                </x-gc.td>
+                <x-gc.td>
+                    <flux:button size="sm" wire:click="registerCheckIn({{ $subscription->client->id }})">
+                        Registrar entrada
+                    </flux:button>
                 </x-gc.td>
             </tr>
         @empty
