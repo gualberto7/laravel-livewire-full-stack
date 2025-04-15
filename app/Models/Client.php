@@ -17,4 +17,35 @@ class Client extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+
+    /**
+     * Obtiene los check-ins del cliente
+     */
+    public function checkIns(): HasMany
+    {
+        return $this->hasMany(CheckIn::class);
+    }
+
+    /**
+     * Verifica si el cliente ha hecho check-in hoy en el gimnasio especificado
+     */
+    public function hasCheckedInToday($gymId): bool
+    {
+        return $this->checkIns()
+            ->forGym($gymId)
+            ->forDate(now())
+            ->exists();
+    }
+
+    /**
+     * Registra un nuevo check-in para el cliente
+     */
+    public function checkIn($gymId, $userName): CheckIn
+    {
+        return $this->checkIns()->create([
+            'gym_id' => $gymId,
+            'created_by' => $userName,
+            'updated_by' => $userName,
+        ]);
+    }
 }
