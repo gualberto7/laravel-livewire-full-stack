@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+<div>
     <div class="py-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div class="w-1/3 mb-4 sm:mb-0">
