@@ -52,38 +52,15 @@
                     {{ $subscription->membership->name ?? 'N/A' }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $subscription->start_date ?? 'N/A' }}
+                    {{ $subscription->start_date->format('d/m/Y') ?? 'N/A' }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $subscription->end_date ?? 'N/A' }}
+                    {{ $subscription->end_date->format('d/m/Y') ?? 'N/A' }}
                 </x-gc.td>
                 <x-gc.td>
-                    @php
-                        $now = now();
-                        $status = 'inactive';
-                        $color = 'zinc';
-                        
-                        if ($subscription->start_date && $subscription->end_date) {
-                            if ($now->between($subscription->start_date, $subscription->end_date)) {
-                                $status = 'activa';
-                                $color = 'emerald';
-                            } elseif ($now->lt($subscription->start_date)) {
-                                $status = 'pendiente';
-                                $color = 'amber';
-                            } else {
-                                $status = 'vencida';
-                                $color = 'red';
-                            }
-                        }
-                    @endphp
-                    <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
-                        @if($color === 'emerald') text-emerald-700 bg-emerald-50 ring-emerald-600/20 dark:text-emerald-400 dark:bg-emerald-400/10
-                        @elseif($color === 'amber') text-amber-700 bg-amber-50 ring-amber-600/20 dark:text-amber-400 dark:bg-amber-400/10
-                        @elseif($color === 'red') text-red-700 bg-red-50 ring-red-600/20 dark:text-red-400 dark:bg-red-400/10
-                        @else text-zinc-700 bg-zinc-50 ring-zinc-600/20 dark:text-zinc-400 dark:bg-zinc-400/10
-                        @endif">
-                        {{ ucfirst($status) }}
-                    </span>
+                    <flux:badge :color="$subscription->getStatusColor()">
+                        {{ ucfirst($subscription->getStatus()) }}
+                    </flux:badge>
                 </x-gc.td>
             </tr>
         @empty
