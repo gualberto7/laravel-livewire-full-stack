@@ -22,130 +22,76 @@
         </div>
     </div>
 
-    <div class="mt-4 overflow-hidden rounded-lg border border-gray-200 dark:border-zinc-700">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-zinc-700">
-                <thead class="bg-gray-50 dark:bg-zinc-800">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-zinc-400">
-                            <button wire:click="sortBy('client_id')" class="group inline-flex">
-                                Cliente
-                                <span class="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                                    @if ($sortField === 'client_id')
-                                        @if ($sortDirection === 'asc')
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 01-1.08-.02.75.75 0 01.02-1.08l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.01 1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @else
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @endif
-                                    @else
-                                        <svg class="invisible h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                        </svg>
-                                    @endif
-                                </span>
-                            </button>
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-zinc-400">
-                            <button wire:click="sortBy('membership_id')" class="group inline-flex">
-                                Membresía
-                                <span class="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                                    @if ($sortField === 'membership_id')
-                                        @if ($sortDirection === 'asc')
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 01-1.08-.02.75.75 0 01.02-1.08l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.01 1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @else
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @endif
-                                    @else
-                                        <svg class="invisible h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                        </svg>
-                                    @endif
-                                </span>
-                            </button>
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-zinc-400">
-                            <button wire:click="sortBy('start_date')" class="group inline-flex">
-                                Fecha Inicio
-                                <span class="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                                    @if ($sortField === 'start_date')
-                                        @if ($sortDirection === 'asc')
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 01-1.08-.02.75.75 0 01.02-1.08l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.01 1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @else
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @endif
-                                    @else
-                                        <svg class="invisible h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                        </svg>
-                                    @endif
-                                </span>
-                            </button>
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-zinc-400">
-                            <button wire:click="sortBy('end_date')" class="group inline-flex">
-                                Fecha Fin
-                                <span class="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                                    @if ($sortField === 'end_date')
-                                        @if ($sortDirection === 'asc')
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 01-1.08-.02.75.75 0 01.02-1.08l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.01 1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @else
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                            </svg>
-                                        @endif
-                                    @else
-                                        <svg class="invisible h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                        </svg>
-                                    @endif
-                                </span>
-                            </button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200 dark:bg-zinc-900 dark:divide-zinc-700">
-                    @forelse ($subscriptions as $subscription)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                {{ $subscription->client->name ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400">
-                                {{ $subscription->membership->name ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400">
-                                {{ $subscription->start_date ? $subscription->start_date : 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400">
-                                {{ $subscription->end_date ? $subscription->end_date : 'N/A' }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-zinc-400 text-center">
-                                No se encontraron suscripciones.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <x-gc.table :paginate="$subscriptions">
+        <x-slot:header>
+            <tr>
+                <x-gc.th sortable :sorted="$sortField === 'client_id'" :direction="$sortDirection" wire:click="sortBy('client_id')">
+                    Cliente
+                </x-gc.th>
+                <x-gc.th sortable :sorted="$sortField === 'membership_id'" :direction="$sortDirection" wire:click="sortBy('membership_id')">
+                    Membresía
+                </x-gc.th>
+                <x-gc.th sortable :sorted="$sortField === 'start_date'" :direction="$sortDirection" wire:click="sortBy('start_date')">
+                    Fecha Inicio
+                </x-gc.th>
+                <x-gc.th sortable :sorted="$sortField === 'end_date'" :direction="$sortDirection" wire:click="sortBy('end_date')">
+                    Fecha Fin
+                </x-gc.th>
+                <x-gc.th>
+                    Estado
+                </x-gc.th>
+            </tr>
+        </x-slot:header>
 
-    <div class="mt-4">
-        {{ $subscriptions->links() }}
-    </div>
+        @forelse ($subscriptions as $subscription)
+            <tr>
+                <x-gc.td variant="strong">
+                    {{ $subscription->client->name ?? 'N/A' }}
+                </x-gc.td>
+                <x-gc.td>
+                    {{ $subscription->membership->name ?? 'N/A' }}
+                </x-gc.td>
+                <x-gc.td>
+                    {{ $subscription->start_date ?? 'N/A' }}
+                </x-gc.td>
+                <x-gc.td>
+                    {{ $subscription->end_date ?? 'N/A' }}
+                </x-gc.td>
+                <x-gc.td>
+                    @php
+                        $now = now();
+                        $status = 'inactive';
+                        $color = 'zinc';
+                        
+                        if ($subscription->start_date && $subscription->end_date) {
+                            if ($now->between($subscription->start_date, $subscription->end_date)) {
+                                $status = 'activa';
+                                $color = 'emerald';
+                            } elseif ($now->lt($subscription->start_date)) {
+                                $status = 'pendiente';
+                                $color = 'amber';
+                            } else {
+                                $status = 'vencida';
+                                $color = 'red';
+                            }
+                        }
+                    @endphp
+                    <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
+                        @if($color === 'emerald') text-emerald-700 bg-emerald-50 ring-emerald-600/20 dark:text-emerald-400 dark:bg-emerald-400/10
+                        @elseif($color === 'amber') text-amber-700 bg-amber-50 ring-amber-600/20 dark:text-amber-400 dark:bg-amber-400/10
+                        @elseif($color === 'red') text-red-700 bg-red-50 ring-red-600/20 dark:text-red-400 dark:bg-red-400/10
+                        @else text-zinc-700 bg-zinc-50 ring-zinc-600/20 dark:text-zinc-400 dark:bg-zinc-400/10
+                        @endif">
+                        {{ ucfirst($status) }}
+                    </span>
+                </x-gc.td>
+            </tr>
+        @empty
+            <tr>
+                <x-gc.td colspan="5" class="text-center">
+                    No se encontraron suscripciones.
+                </x-gc.td>
+            </tr>
+        @endforelse
+    </x-gc.table>
 </div>
