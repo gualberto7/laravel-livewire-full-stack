@@ -5,10 +5,11 @@ namespace App\Livewire;
 use App\Models\CheckIn;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CheckIns extends Component
 {
-    use WithPagination;
+    use WithPagination, HasFactory;
 
     public $search = '';
     public $sortField = 'created_at';
