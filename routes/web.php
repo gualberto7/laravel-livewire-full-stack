@@ -27,9 +27,11 @@ Route::middleware(['auth'])->group(function () {
         })->name('create');
     });
 
-    Route::view('check-ins', 'check-ins')
-        ->middleware(['auth', 'verified'])
-        ->name('check-ins');
+    Route::prefix('check-ins')->name('check-ins.')->group(function () {
+        Route::get('/', function () {
+            return view('check-ins.index');
+        })->name('index');
+    });
 
     // Grupo de rutas para memberships
     Route::prefix('memberships')->name('memberships.')->group(function () {
