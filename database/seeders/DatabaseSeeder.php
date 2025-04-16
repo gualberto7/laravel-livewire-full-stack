@@ -25,31 +25,38 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create a super admin user
-        $superAdmin = User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@example.com',
-            'phone' => '1234567890',
+        $ownerUser = User::factory()->create([
+            'name' => 'Owner User',
+            'email' => 'owner@test.com',
         ]);
-        $superAdmin->assignRole('super-admin');
+        $ownerUser->assignRole('gym-owner');
 
         // Create a test user
-        $testUser = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'phone' => '0987654321',
+        $adminUser = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@test.com',
         ]);
+        $adminUser->assignRole('gym-admin');
+
+        $instructorUser = User::factory()->create([
+            'name' => 'Instructor User',
+            'email' => 'instructor@test.com',
+        ]);
+        $instructorUser->assignRole('gym-instructor');
 
         $gym = Gym::create([
             'name' => 'Gym 1',
             'address' => '123 Main St',
             'phone' => '1234567890',
-            'email' => 'gym@example.com',
-            'owner_id' => $superAdmin->id,
+            'email' => 'gym@test.com',
+            'owner_id' => $ownerUser->id,
         ]);
 
-        $gym->users()->attach($superAdmin, ['role' => 'super-admin']);
+        $gym->users()->attach($ownerUser, ['role' => 'gym-owner']);
 
-        $gym->users()->attach($testUser, ['role' => 'admin']);
+        $gym->users()->attach($adminUser, ['role' => 'gym-admin']);
+
+        $gym->users()->attach($instructorUser, ['role' => 'gym-instructor']);
         
         $membership = Membership::factory()->create([
             'name' => 'Mensual',

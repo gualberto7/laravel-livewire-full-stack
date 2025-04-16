@@ -30,11 +30,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit gym staff',
             'manage gym settings',
             'view gym reports',
-            'manage gym members',
-            'view gym members',
-            'add gym members',
-            'remove gym members',
-            'edit gym members',
+            'manage gym memberships',
+            'view gym memberships',
+            'add gym memberships',
+            'remove gym memberships',
+            'edit gym memberships',
         ];
 
         foreach ($gymPermissions as $permission) {
@@ -59,11 +59,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit gym staff',
             'manage gym settings',
             'view gym reports',
-            'manage gym members',
-            'view gym members',
-            'add gym members',
-            'remove gym members',
-            'edit gym members',
+            'manage gym memberships',
+            'view gym memberships',
+            'add gym memberships',
+            'remove gym memberships',
+            'edit gym memberships',
         ]);
 
         // Gym Admin role
@@ -77,11 +77,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit gym staff',
             'manage gym settings',
             'view gym reports',
-            'manage gym members',
-            'view gym members',
-            'add gym members',
-            'remove gym members',
-            'edit gym members',
+            'manage gym memberships',
+            'view gym memberships',
+            'add gym memberships',
+            'remove gym memberships',
+            'edit gym memberships',
         ]);
 
         // Gym Instructor role
@@ -89,10 +89,10 @@ class RolesAndPermissionsSeeder extends Seeder
         $gymInstructorRole->givePermissionTo([
             'view gym',
             'view gym staff',
-            'view gym members',
-            'add gym members',
-            'remove gym members',
-            'edit gym members',
+            'view gym memberships',
+            'add gym memberships',
+            'remove gym memberships',
+            'edit gym memberships',
         ]);
 
         // Gym Staff role (basic staff with minimal permissions)
@@ -100,7 +100,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $gymStaffRole->givePermissionTo([
             'view gym',
             'view gym staff',
-            'view gym members',
+            'view gym memberships',
         ]);
     }
 }
