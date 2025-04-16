@@ -43,6 +43,12 @@ Route::middleware(['auth'])->group(function () {
             return view('memberships.create');
         })->name('create');
     });
+
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/', function () {
+            return view('staff.index');
+        })->name('index');
+    });
 });
 
 require __DIR__.'/auth.php';

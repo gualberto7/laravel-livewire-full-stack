@@ -44,13 +44,10 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     /**
      * Get the user's initials
@@ -200,5 +197,19 @@ class User extends Authenticatable
     public function updateCurrentGym($gymId)
     {
         // Actualizar el componente
+    }
+
+    public function getRoleNameAttribute(): string
+    {
+        if (!isset($this->role)) {
+            return 'Sin rol';
+        }
+
+        return match($this->role) {
+            'admin' => 'Administrador',
+            'instructor' => 'Instructor',
+            'receptionist' => 'Recepcionista',
+            default => ucfirst($this->role),
+        };
     }
 }

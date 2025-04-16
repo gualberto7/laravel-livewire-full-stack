@@ -54,7 +54,12 @@ class Gym extends Model
     {
         return $this->belongsToMany(User::class)
             ->withPivot('role', 'is_active')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->select(['users.*', 'gym_user.role'])
+            ->withCasts([
+                'role' => 'string',
+                'is_active' => 'boolean',
+            ]);
     }
 
     /**
