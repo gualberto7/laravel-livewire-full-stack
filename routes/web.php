@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::view('memberships', 'memberships')
         ->middleware(['auth', 'verified'])
         ->name('memberships');
+
+    Route::view('memberships/create', 'memberships.create')
+        ->middleware(['auth', 'verified'])
+        ->name('memberships.create');
 });
 
 require __DIR__.'/auth.php';
