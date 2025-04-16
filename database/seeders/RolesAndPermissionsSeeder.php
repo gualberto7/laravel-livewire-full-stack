@@ -35,6 +35,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'add gym memberships',
             'remove gym memberships',
             'edit gym memberships',
+            'manage gym subscriptions',
+            'view gym subscriptions',
+            'add gym subscriptions',
+            'remove gym subscriptions',
+            'edit gym subscriptions',
         ];
 
         foreach ($gymPermissions as $permission) {
@@ -64,17 +69,17 @@ class RolesAndPermissionsSeeder extends Seeder
             'add gym memberships',
             'remove gym memberships',
             'edit gym memberships',
+            'manage gym subscriptions',
+            'view gym subscriptions',
+            'add gym subscriptions',
+            'remove gym subscriptions',
+            'edit gym subscriptions',
         ]);
 
         // Gym Admin role
         $gymAdminRole = Role::create(['name' => 'gym-admin']);
         $gymAdminRole->givePermissionTo([
             'view gym',
-            'manage gym staff',
-            'view gym staff',
-            'add gym staff',
-            'remove gym staff',
-            'edit gym staff',
             'manage gym settings',
             'view gym reports',
             'manage gym memberships',
@@ -82,6 +87,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'add gym memberships',
             'remove gym memberships',
             'edit gym memberships',
+            'manage gym subscriptions',
+            'view gym subscriptions',
+            'add gym subscriptions',
+            'remove gym subscriptions',
+            'edit gym subscriptions',
         ]);
 
         // Gym Instructor role
@@ -90,17 +100,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'view gym',
             'view gym staff',
             'view gym memberships',
-            'add gym memberships',
-            'remove gym memberships',
-            'edit gym memberships',
-        ]);
-
-        // Gym Staff role (basic staff with minimal permissions)
-        $gymStaffRole = Role::create(['name' => 'gym-staff']);
-        $gymStaffRole->givePermissionTo([
-            'view gym',
-            'view gym staff',
-            'view gym memberships',
+            'view gym subscriptions',
         ]);
     }
 }
