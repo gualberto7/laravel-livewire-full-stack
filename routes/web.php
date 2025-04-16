@@ -17,27 +17,30 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    
-    // Ruta para la página de suscripciones
-    Route::view('subscriptions', 'subscriptions')
-        ->middleware(['auth', 'verified'])
-        ->name('subscriptions');
 
-    Route::view('subscriptions/create', 'createSubscription')
-        ->middleware(['auth', 'verified'])
-        ->name('createSubscription');
+    Route::prefix('subscriptions')->name('subscriptions.')->group(function () {
+        Route::get('/', function () {
+            return view('subscriptions.index');
+        })->name('index');
+        Route::get('/create', function () {
+            return view('subscriptions.create');
+        })->name('create');
+    });
 
     Route::view('check-ins', 'check-ins')
         ->middleware(['auth', 'verified'])
         ->name('check-ins');
 
-    Route::view('memberships', 'memberships')
-        ->middleware(['auth', 'verified'])
-        ->name('memberships');
+    // Grupo de rutas para memberships
+    Route::prefix('memberships')->name('memberships.')->group(function () {
+        Route::get('/', function () {
+            return view('memberships.index');
+        })->name('index');
 
-    Route::view('memberships/create', 'memberships.create')
-        ->middleware(['auth', 'verified'])
-        ->name('memberships.create');
+        Route::get('/create', function () {
+            return view('memberships.create');
+        })->name('create');
+    });
 });
 
 require __DIR__.'/auth.php';
