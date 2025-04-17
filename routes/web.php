@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +49,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', function () {
             return view('staff.index');
         })->name('index');
+
+        Route::get('/{staffMember}', function (User $staffMember) {
+            return view('staff.show', compact('staffMember'));
+        })->name('show');
     });
 });
 

@@ -31,7 +31,7 @@
                 <x-gc.td>
                     <div class="flex items-center gap-3">
                         <flux:tooltip content="Detalles">
-                            <flux:button icon="eye" size="xs" variant="ghost" wire:click="showStaff({{ $staffMember->id }})" />
+                            <flux:button icon="eye" size="xs" variant="ghost" href="{{ route('staff.show', $staffMember->id) }}" />
                         </flux:tooltip>
                         <flux:tooltip content="Eliminar">
                             <flux:button icon="trash" size="xs" variant="danger" wire:click="deleteStaff({{ $staffMember->id }})" />

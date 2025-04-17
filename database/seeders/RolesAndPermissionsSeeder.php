@@ -19,27 +19,12 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Create permissions for gym management
         $gymPermissions = [
-            'view gym',
-            'create gym',
-            'edit gym',
-            'delete gym',
+            'manage gym',
             'manage gym staff',
-            'view gym staff',
-            'add gym staff',
-            'remove gym staff',
-            'edit gym staff',
             'manage gym settings',
-            'view gym reports',
+            'manage gym reports',
             'manage gym memberships',
-            'view gym memberships',
-            'add gym memberships',
-            'remove gym memberships',
-            'edit gym memberships',
             'manage gym subscriptions',
-            'view gym subscriptions',
-            'add gym subscriptions',
-            'remove gym subscriptions',
-            'edit gym subscriptions',
         ];
 
         foreach ($gymPermissions as $permission) {
@@ -55,52 +40,28 @@ class RolesAndPermissionsSeeder extends Seeder
         // Gym Owner role
         $gymOwnerRole = Role::create(['name' => 'gym-owner']);
         $gymOwnerRole->givePermissionTo([
-            'view gym',
-            'edit gym',
+            'manage gym',
             'manage gym staff',
-            'view gym staff',
-            'add gym staff',
-            'remove gym staff',
-            'edit gym staff',
             'manage gym settings',
-            'view gym reports',
+            'manage gym reports',
             'manage gym memberships',
-            'view gym memberships',
-            'add gym memberships',
-            'remove gym memberships',
-            'edit gym memberships',
             'manage gym subscriptions',
-            'view gym subscriptions',
-            'add gym subscriptions',
-            'remove gym subscriptions',
-            'edit gym subscriptions',
         ]);
 
         // Gym Admin role
         $gymAdminRole = Role::create(['name' => 'gym-admin']);
         $gymAdminRole->givePermissionTo([
-            'view gym',
-            'manage gym settings',
-            'view gym reports',
+            'manage gym',
             'manage gym memberships',
-            'view gym memberships',
-            'add gym memberships',
-            'remove gym memberships',
-            'edit gym memberships',
             'manage gym subscriptions',
-            'view gym subscriptions',
-            'add gym subscriptions',
-            'remove gym subscriptions',
-            'edit gym subscriptions',
         ]);
 
         // Gym Instructor role
         $gymInstructorRole = Role::create(['name' => 'gym-instructor']);
         $gymInstructorRole->givePermissionTo([
-            'view gym',
-            'view gym staff',
-            'view gym memberships',
-            'view gym subscriptions',
+            'manage gym',
+            'manage gym memberships',
+            'manage gym subscriptions',
         ]);
     }
 }
