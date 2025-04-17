@@ -64,7 +64,7 @@ class MembershipForm extends Component
             'type' => 'success',
         ]);
 
-        $this->redirect(route('memberships'));
+        $this->redirect(route('memberships.index'), navigate: true);
     }
 
     public function render()

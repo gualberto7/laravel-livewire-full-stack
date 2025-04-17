@@ -100,7 +100,7 @@ class SubscriptionForm extends Component
             'type' => 'success',
         ]);
 
-        return $this->redirect(route('subscriptions'), navigate: true);
+        return $this->redirect(route('subscriptions.index'), navigate: true);
     }
 
     public function render()

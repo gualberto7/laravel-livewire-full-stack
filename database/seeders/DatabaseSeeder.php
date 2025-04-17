@@ -51,8 +51,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'gym@test.com',
             'owner_id' => $ownerUser->id,
         ]);
+        $gym2 = Gym::create([
+            'name' => 'Gym 2',
+            'address' => '123 Main St',
+            'phone' => '1234567890',
+            'email' => 'gym2@test.com',
+            'owner_id' => $ownerUser->id,
+        ]);
 
         $gym->users()->attach($ownerUser, ['role' => 'gym-owner']);
+        $gym2->users()->attach($ownerUser, ['role' => 'gym-owner']);
 
         $gym->users()->attach($adminUser, ['role' => 'gym-admin']);
 
@@ -77,5 +85,20 @@ class DatabaseSeeder extends Seeder
                 'gym_id' => $gym->id,
             ]);
         }
+
+        $ownerUser2 = User::factory()->create([
+            'name' => 'Owner User 2',
+            'email' => 'owner2@test.com',
+        ]);
+        $ownerUser2->assignRole('gym-owner');
+        $gym3 = Gym::create([
+            'name' => 'Gym 3',
+            'address' => '123 Main St',
+            'phone' => '1234567890',
+            'email' => 'gym3@test.com',
+            'owner_id' => $ownerUser2->id,
+        ]);
+
+        $gym3->users()->attach($ownerUser2, ['role' => 'gym-owner']);
     }
 }

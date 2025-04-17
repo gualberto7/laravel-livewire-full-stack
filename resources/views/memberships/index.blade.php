@@ -3,7 +3,7 @@
         <div>
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Membresías</h1>
-                @can('add gym memberships')   
+                @can('manage gym memberships')   
                     <flux:button href="{{ route('memberships.create') }}">Crear Membresía</flux:button>
                 @endcan
             </div>
