@@ -10,6 +10,7 @@ use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
+    public string $phone = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -21,6 +22,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'min:6'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -51,6 +53,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
             autofocus
             autocomplete="name"
             :placeholder="__('Full name')"
+        />
+
+        <!-- Phone -->
+        <flux:input
+            wire:model="phone"
+            :label="__('Phone')"
+            type="text"
+            required
+            :placeholder="__('Phone number')"
         />
 
         <!-- Email Address -->
