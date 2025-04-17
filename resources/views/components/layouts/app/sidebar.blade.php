@@ -19,8 +19,12 @@
                 </flux:navlist.group>
 
                 <flux:navlist.group :heading="__('Gimnasio')" class="grid">
-                    <flux:navlist.item icon="document-currency-dollar" :href="route('memberships.index')" :current="request()->routeIs('memberships.index')" wire:navigate>{{ __('Membresias') }}</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('staff.index')" :current="request()->routeIs('staff.index')" wire:navigate>{{ __('Personal') }}</flux:navlist.item>
+                    @can('manage gym memberships')
+                        <flux:navlist.item icon="document-currency-dollar" :href="route('memberships.index')" :current="request()->routeIs('memberships.index')" wire:navigate>{{ __('Membresias') }}</flux:navlist.item>
+                    @endcan
+                    @can('manage gym staff')
+                        <flux:navlist.item icon="users" :href="route('staff.index')" :current="request()->routeIs('staff.index')" wire:navigate>{{ __('Personal') }}</flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
             </flux:navlist>
 

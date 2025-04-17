@@ -84,12 +84,14 @@
         </dl>
     </div>
 
-    <div class="mt-6 flex justify-end space-x-3">
-        {{-- <flux:button variant="secondary" wire:click="$dispatch('cancel')">
-            Volver
-        </flux:button>
-        <flux:button wire:click="$dispatch('edit', { staffMember: {{ $staffMember->id }} })">
-            Editar
-        </flux:button> --}}
-    </div>
+    @if($canManageStaff)
+        <div class="mt-6 flex justify-end space-x-3">
+            <flux:button href="{{ route('staff.index') }}">
+                Volver
+            </flux:button>
+            <flux:button>
+                Editar
+            </flux:button>
+        </div>
+    @endif
 </div>

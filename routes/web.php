@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         })->name('create');
     });
 
-    Route::prefix('staff')->name('staff.')->group(function () {
+    Route::prefix('staff')->name('staff.')->middleware(['can:manage gym staff'])->group(function () {
         Route::get('/', function () {
             return view('staff.index');
         })->name('index');
