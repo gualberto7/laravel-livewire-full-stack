@@ -63,6 +63,15 @@ class Gym extends Model
     }
 
     /**
+     * Get the clients associated with the gym.
+     */
+    public function clients(): BelongsToMany
+    {
+        return $this->belongsToMany(Client::class, 'client_gym')
+            ->withTimestamps();
+    }
+
+    /**
      * Get the admins of the gym.
      */
     public function admins()
@@ -147,11 +156,17 @@ class Gym extends Model
         ]);
     }
 
+    /**
+     * Get the memberships of the gym.
+     */
     public function memberships(): HasMany
     {
         return $this->hasMany(Membership::class);
     }
 
+    /**
+     * Get the subscriptions of the gym.
+     */
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Client extends Model
@@ -16,6 +17,15 @@ class Client extends Model
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Obtiene los gimnasios a los que el cliente se ha suscrito
+     */
+    public function gyms(): BelongsToMany
+    {
+        return $this->belongsToMany(Gym::class, 'client_gym')
+            ->withTimestamps();
     }
 
     /**
@@ -47,5 +57,17 @@ class Client extends Model
             'created_by' => $userName,
             'updated_by' => $userName,
         ]);
+    }
+
+    /**
+     * Registra una suscripción a un gimnasio
+     */
+    public function subscribeToGym($gymId): void
+    {
+        $existingRelation = $this->gyms()->where('gym_id', $gymId)->first();
+        
+        if (!$existingRelation) {
+            $this->gyms()->attach($gymId);
+        }
     }
 }
