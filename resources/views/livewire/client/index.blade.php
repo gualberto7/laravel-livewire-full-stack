@@ -1,15 +1,37 @@
 <div>
-    <x-gc.table>
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+        <div class="w-full sm:w-auto">
+            <flux:input 
+                wire:model.live.debounce.300ms="search" 
+                placeholder="Buscar por nombre o CI..." 
+                icon="magnifying-glass"
+            />
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3">
+            <div class="w-full sm:w-auto self-end">
+                <flux:button color="primary" icon="plus">
+                    Nuevo Cliente
+                </flux:button>
+            </div>
+        </div>
+    </div>
+    
+    <x-gc.table :paginate="$clients">
         <x-slot:header>
             <tr>
-                <x-gc.th>
+                <x-gc.th sortable :sorted="$sortField === 'name'" :direction="$sortDirection" wire:click="sortBy('name')">
                     Nombre
+                </x-gc.th>
+                <x-gc.th>
+                    CI
                 </x-gc.th>
                 <x-gc.th>
                     Teléfono
                 </x-gc.th>
                 <x-gc.th>
-                    Rol
+                    Email
                 </x-gc.th>
                 <x-gc.th>
                     Acciones
@@ -17,10 +39,13 @@
             </tr>
         </x-slot:header>
 
-        @forelse ($clients as $client)
+        @forelse($clients as $client)
             <tr>
                 <x-gc.td variant="strong">
                     {{ $client->name }}
+                </x-gc.td>
+                <x-gc.td>
+                    {{ $client->ci }}
                 </x-gc.td>
                 <x-gc.td>
                     {{ $client->phone }}
@@ -41,7 +66,7 @@
             </tr>
         @empty
             <tr>
-                <x-gc.td colspan="4" class="text-center">
+                <x-gc.td colspan="5" class="text-center">
                     No se encontraron clientes.
                 </x-gc.td>
             </tr>
