@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gyms', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('address')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('logo')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

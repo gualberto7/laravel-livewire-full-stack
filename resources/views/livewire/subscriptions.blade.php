@@ -58,7 +58,7 @@
                     </flux:badge>
                 </x-gc.td>
                 <x-gc.td>
-                    <flux:button size="sm" wire:click="registerCheckIn({{ $subscription->client->id }})">
+                    <flux:button size="sm" wire:click="registerCheckIn('{{ $subscription->client->id }}')">
                         Registrar entrada
                     </flux:button>
                 </x-gc.td>

@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('check_ins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('gym_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('client_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('gym_id')->constrained()->cascadeOnDelete();
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Client;
+use App\Models\Gym;
 
 class ClientSeeder extends Seeder
 {
@@ -13,7 +14,11 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        Client::factory(50)->create();
+        $gym = Gym::first();
+
+        Client::factory(50)->create([
+            'gym_id' => $gym->id,
+        ]);
 
         Client::factory()->create([
             'name' => 'Gualberto Cuiza',
@@ -21,6 +26,7 @@ class ClientSeeder extends Seeder
             'phone' => '78669442',
             'email' => 'gualberto.cuiza@test.com',
             'avatar' => 'https://via.placeholder.com/150',
+            'gym_id' => $gym->id,
         ]);
     }
 }

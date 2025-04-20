@@ -94,8 +94,6 @@ class SubscriptionForm extends Component
             'updated_by' => auth()->user()->name,
         ]);
 
-        $this->selectedClient->subscribeToGym($this->currentGym->id);
-
         session()->flash('notify', [
             'title' => 'Suscripción creada',
             'message' => 'La suscripción se ha creado correctamente',

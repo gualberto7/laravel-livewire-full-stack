@@ -18,9 +18,7 @@ class Index extends Component
         $this->staff = $this->currentGym->users;
         
         // Verificar si el usuario tiene permiso para gestionar el personal
-        $this->canManageStaff = Auth::user()->hasRole('super-admin') || 
-                               Auth::user()->hasRole('gym-owner') || 
-                               Auth::user()->hasPermissionTo('manage gym staff');
+        $this->canManageStaff = true;
     }
 
     public function deleteStaff($staffId)

@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Gym;
 use App\Models\Membership;
 use App\Models\Subscription;
+use App\Models\Client;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,8 +21,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed roles and permissions
         $this->call([
-            RolesAndPermissionsSeeder::class,
-            ClientSeeder::class,
+            RolesAndPermissionsSeeder::class
         ]);
 
         // Create a super admin user
@@ -65,26 +65,6 @@ class DatabaseSeeder extends Seeder
         $gym->users()->attach($adminUser, ['role' => 'gym-admin']);
 
         $gym->users()->attach($instructorUser, ['role' => 'gym-instructor']);
-        
-        $membership = Membership::factory()->create([
-            'name' => 'Mensual',
-            'price' => 200,
-            'duration' => 30,
-            'description' => 'Membership 1 description',
-            'gym_id' => $gym->id,
-        ]);
-
-        for ($i = 1; $i <= 20; $i++) {
-            Subscription::factory()->create([
-                'start_date' => now(),
-                'end_date' => now()->addDays(30),
-                'created_by' => 'seeder',
-                'updated_by' => 'seeder',
-                'client_id' => $i,
-                'membership_id' => $membership->id,
-                'gym_id' => $gym->id,
-            ]);
-        }
 
         $ownerUser2 = User::factory()->create([
             'name' => 'Owner User 2',
@@ -100,5 +80,31 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $gym3->users()->attach($ownerUser2, ['role' => 'gym-owner']);
+
+        $this->call([
+            ClientSeeder::class
+        ]);
+
+        $membership = Membership::factory()->create([
+            'name' => 'Mensual',
+            'price' => 200,
+            'duration' => 30,
+            'description' => 'Membership 1 description',
+            'gym_id' => $gym->id,
+        ]);
+
+        $clients = Client::take(20)->get();
+
+        foreach ($clients as $client) {
+            Subscription::factory()->create([
+                'start_date' => now(),
+                'end_date' => now()->addDays(30),
+                'created_by' => 'seeder',
+                'updated_by' => 'seeder',
+                'client_id' => $client->id,
+                'membership_id' => $membership->id,
+                'gym_id' => $gym->id,
+            ]);
+        }
     }
 }

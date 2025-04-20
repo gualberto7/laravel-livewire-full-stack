@@ -31,10 +31,10 @@
                 <x-gc.td>
                     <div class="flex items-center gap-3">
                         <flux:tooltip content="Editar">
-                            <flux:button icon="pencil" size="xs" variant="primary" wire:click="editMembership({{ $membership->id }})" />
+                            <flux:button icon="pencil" size="xs" variant="primary" wire:click="editMembership('{{ $membership->id }}')" />
                         </flux:tooltip>
                         <flux:tooltip content="Eliminar">
-                            <flux:button icon="trash" size="xs" variant="danger" wire:click="deleteMembership({{ $membership->id }})" />
+                            <flux:button icon="trash" size="xs" variant="danger" wire:click="deleteMembership('{{ $membership->id }}')" />
                         </flux:tooltip>
                     </div>
                 </x-gc.td>

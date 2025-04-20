@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('gym_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('gym_id')->constrained()->onDelete('cascade');
             $table->string('report_type'); // 'monthly', 'yearly'
             $table->integer('year');
             $table->integer('month')->nullable(); // Solo para reportes mensuales

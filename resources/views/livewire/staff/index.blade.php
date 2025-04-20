@@ -37,7 +37,7 @@
                                 <flux:button icon="eye" size="xs" variant="ghost" href="{{ route('staff.show', $staffMember->id) }}" />
                             </flux:tooltip>
                             <flux:tooltip content="Eliminar">
-                                <flux:button icon="trash" size="xs" variant="danger" wire:click="deleteStaff({{ $staffMember->id }})" />
+                                <flux:button icon="trash" size="xs" variant="danger" wire:click="deleteStaff('{{ $staffMember->id }}')" />
                             </flux:tooltip>
                         </div>
                     </x-gc.td>

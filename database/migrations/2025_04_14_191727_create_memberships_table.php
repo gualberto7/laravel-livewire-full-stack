@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('memberships', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('price');
             $table->integer('duration'); // in days
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('promo_end_date')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
-            $table->foreignId('gym_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('gym_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
