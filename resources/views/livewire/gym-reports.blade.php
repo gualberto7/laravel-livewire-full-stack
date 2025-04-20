@@ -75,9 +75,6 @@
                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                             Suscripciones Vencidas
                         </th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                            Acciones
-                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-700 dark:bg-zinc-800">
@@ -117,21 +114,6 @@
                                     {{ $report->expired_subscriptions }}
                                 </div>
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-right">
-                                <flux:dropdown>
-                                    <flux:button size="xs" color="zinc" icon="ellipsis-horizontal" />
-                                    
-                                    <flux:menu>
-                                        <flux:menu.item wire:click="$dispatch('openModal', { component: 'view-report-details', arguments: { reportId: {{ $report->id }} }})" icon="eye">
-                                            Ver Detalles
-                                        </flux:menu.item>
-                                        
-                                        <flux:menu.item wire:click="$dispatch('openModal', { component: 'export-report', arguments: { reportId: {{ $report->id }} }})" icon="arrow-down-tray">
-                                            Exportar
-                                        </flux:menu.item>
-                                    </flux:menu>
-                                </flux:dropdown>
-                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -148,4 +130,4 @@
     <div class="mt-4">
         {{ $reports->links() }}
     </div>
-</div> 
+</div>
