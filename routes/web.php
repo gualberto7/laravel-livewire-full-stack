@@ -54,6 +54,10 @@ Route::middleware(['auth'])->group(function () {
             return view('staff.show', compact('staffMember'));
         })->name('show');
     });
+
+    Route::get('/reports', function () {
+        return view('reports');
+    })->name('reports');
 });
 
 require __DIR__.'/auth.php';
