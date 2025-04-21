@@ -70,4 +70,22 @@ Route::middleware(['auth'])->group(function () {
     })->name('reports');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/clients', function () {
+        return view('clients.index');
+    })->name('clients.index');
+
+    Route::get('/clients/create', function () {
+        return view('clients.create');
+    })->name('clients.create');
+
+    Route::get('/clients/{client}/edit', function (App\Models\Client $client) {
+        return view('clients.edit', compact('client'));
+    })->name('clients.edit');
+});
+
 require __DIR__.'/auth.php';
