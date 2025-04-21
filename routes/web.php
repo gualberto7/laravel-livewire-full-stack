@@ -59,6 +59,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', function () {
             return view('clients.index');
         })->name('index');
+        
+        Route::get('/create', function () {
+            return view('clients.create');
+        })->name('create');
     });
 
     Route::get('/reports', function () {

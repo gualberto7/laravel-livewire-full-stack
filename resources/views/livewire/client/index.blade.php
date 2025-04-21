@@ -11,7 +11,7 @@
         
         <div class="flex flex-wrap items-center gap-3">
             <div class="w-full sm:w-auto self-end">
-                <flux:button color="primary" icon="plus">
+                <flux:button color="primary" icon="plus" href="{{ route('clients.create') }}" navigate>
                     Nuevo Cliente
                 </flux:button>
             </div>
