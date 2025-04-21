@@ -22,7 +22,7 @@
                 id="ci"
                 wire:model.live="ci" 
                 placeholder="Ingrese el CI del cliente" />
-            @error('ci') <flux:error>{{ $message }}</flux:error> @enderror
+            <flux:error name="ci" />
         </div>
 
         <!-- Teléfono -->
@@ -32,7 +32,7 @@
                 id="phone"
                 wire:model.live="phone" 
                 placeholder="Ingrese el teléfono del cliente" />
-            @error('phone') <flux:error>{{ $message }}</flux:error> @enderror
+            <flux:error name="phone" />
         </div>
 
         <!-- Email -->
@@ -43,7 +43,7 @@
                 type="email"
                 wire:model.live="email" 
                 placeholder="Ingrese el email del cliente" />
-            @error('email') <flux:error>{{ $message }}</flux:error> @enderror
+            <flux:error name="email" />
         </div>
 
         <!-- Avatar -->
@@ -63,7 +63,7 @@
                     </div>
                 @endif
             </div>
-            @error('avatar') <flux:error>{{ $message }}</flux:error> @enderror
+            <flux:error name="avatar" />
         </div>
 
         <!-- Botones -->
