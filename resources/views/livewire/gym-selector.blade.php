@@ -12,7 +12,7 @@
         <flux:menu>
             @forelse($availableGyms as $gym)
                 <flux:menu.item 
-                    wire:click="selectGym({{ $gym->id }})"
+                    wire:click="selectGym('{{ $gym->id }}')"
                     :active="$currentGym && $currentGym->id === $gym->id"
                 >
                     {{ $gym->name }}
