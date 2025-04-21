@@ -58,6 +58,9 @@
                         <flux:tooltip content="Detalles">
                             <flux:button icon="eye" size="xs" variant="ghost" />
                         </flux:tooltip>
+                        <flux:tooltip content="Editar">
+                            <flux:button icon="pencil" size="xs" variant="filled" />
+                        </flux:tooltip>
                         <flux:tooltip content="Eliminar">
                             <flux:button icon="trash" size="xs" variant="danger" />
                         </flux:tooltip>

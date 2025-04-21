@@ -14,7 +14,7 @@ class Index extends Component
     public $sortField = 'name';
     public $sortDirection = 'asc';
     public $perPage = 15;
-    private $currentGym;
+    public $currentGym;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -48,7 +48,7 @@ class Index extends Component
         // Si no hay gimnasio actual, mostrar un mensaje
         if (!$this->currentGym) {
             return view('livewire.client.index', [
-                'clients' => collect([]),
+                'clients' => Client::query()->where('id', 0)->paginate($this->perPage),
                 'currentGym' => null
             ]);
         }
