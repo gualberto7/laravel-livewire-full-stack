@@ -38,7 +38,8 @@ class SubscriptionForm extends Component
     public function searchClient()
     {
         if (strlen($this->ci) >= 6) {
-            $this->selectedClient = Client::where('ci', 'like', '%' . $this->ci . '%')
+            $this->selectedClient = Client::where('gym_id', $this->currentGym->id)
+                ->where('ci', 'like', '%' . $this->ci . '%')
                 ->first();
 
             if ($this->selectedClient) {
