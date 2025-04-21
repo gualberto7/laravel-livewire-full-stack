@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->index()->index();
-            $table->string('ci')->unique()->index();
-            $table->string('phone')->unique();
-            $table->string('email')->unique()->nullable();
+            $table->string('name')->index();
+            $table->string('ci')->index();
+            $table->string('phone')->index();
+            $table->string('email')->nullable()->index();
             $table->string('avatar')->nullable();
             $table->foreignUuid('gym_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            
+            // Índices compuestos para garantizar unicidad dentro del mismo gimnasio
+            $table->unique(['ci', 'gym_id']);
+            $table->unique(['email', 'gym_id']);
         });
     }
 

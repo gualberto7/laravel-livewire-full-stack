@@ -17,9 +17,9 @@ class Create extends Component
 
     protected $rules = [
         'name' => 'required|min:3',
-        'ci' => 'required|min:6|unique:clients,ci',
-        'phone' => 'required|min:7|unique:clients,phone',
-        'email' => 'nullable|email|unique:clients,email',
+        'ci' => 'required|min:6',
+        'phone' => 'required|min:7',
+        'email' => 'nullable|email',
         'avatar' => 'nullable|image|max:1024', // Máximo 1MB
     ];
 
@@ -28,15 +28,45 @@ class Create extends Component
         'name.min' => 'El nombre debe tener al menos 3 caracteres',
         'ci.required' => 'El CI es obligatorio',
         'ci.min' => 'El CI debe tener al menos 6 caracteres',
-        'ci.unique' => 'Este CI ya está registrado',
         'phone.required' => 'El teléfono es obligatorio',
         'phone.min' => 'El teléfono debe tener al menos 7 caracteres',
-        'phone.unique' => 'Este teléfono ya está registrado',
         'email.email' => 'El email debe ser válido',
-        'email.unique' => 'Este email ya está registrado',
         'avatar.image' => 'El archivo debe ser una imagen',
         'avatar.max' => 'La imagen no debe superar 1MB',
     ];
+
+    public function boot()
+    {
+        $this->rules['ci'] = [
+            'required',
+            'min:6',
+            function ($attribute, $value, $fail) {
+                $exists = Client::where('ci', $value)
+                    ->where('gym_id', $this->currentGym->id)
+                    ->exists();
+                
+                if ($exists) {
+                    $fail('Este CI ya está registrado en este gimnasio.');
+                }
+            }
+        ];
+
+        $this->rules['email'] = [
+            'nullable',
+            'email',
+            function ($attribute, $value, $fail) {
+                if ($value) {
+                    $exists = Client::where('email', $value)
+                        ->where('gym_id', $this->currentGym->id)
+                        ->exists();
+                    
+                    if ($exists) {
+                        $fail('Este email ya está registrado en este gimnasio.');
+                    }
+                }
+            }
+        ];
+    }
 
     public function mount()
     {
