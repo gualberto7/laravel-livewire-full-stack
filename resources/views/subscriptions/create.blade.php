@@ -8,7 +8,7 @@
             </div>
         </div>
         <div>
-            <livewire:subscription-form />
+            <livewire:subscription.create />
         </div>
     </div>
 </x-layouts.app>

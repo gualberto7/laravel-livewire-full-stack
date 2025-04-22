@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Subscription;
 
 use App\Models\Subscription;
 use App\Models\Gym;
@@ -8,7 +8,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Client;
 
-class Subscriptions extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -56,7 +56,7 @@ class Subscriptions extends Component
     {
         // Si no hay gimnasio actual, mostrar un mensaje
         if (!$this->currentGym) {
-            return view('livewire.subscriptions', [
+            return view('livewire.subscription.index', [
                 'subscriptions' => collect([]),
                 'currentGym' => null
             ]);
@@ -76,7 +76,7 @@ class Subscriptions extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.subscriptions', [
+        return view('livewire.subscription.index', [
             'subscriptions' => $subscriptions,
             'currentGym' => $this->currentGym
         ]);

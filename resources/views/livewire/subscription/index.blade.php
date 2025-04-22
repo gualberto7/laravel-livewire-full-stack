@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="flex items-center gap-3">
             <flux:select>
                 @foreach ([10, 15, 30, 50] as $value)
                     <flux:select.option wire:click="$set('perPage', {{ $value }})" :active="$perPage === $value">
@@ -17,6 +17,9 @@
                     </flux:select.option>
                 @endforeach
             </flux:select>
+            <flux:button color="primary" icon="plus" href="{{ route('subscriptions.create') }}" navigate>
+                Crear Suscripción   
+            </flux:button>
         </div>
     </div>
 

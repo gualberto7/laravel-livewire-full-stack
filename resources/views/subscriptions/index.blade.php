@@ -3,11 +3,10 @@
         <div>
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Suscripciones</h1>
-                <flux:button href="{{ route('subscriptions.create') }}">Crear Suscripción</flux:button>
             </div>
         </div>
         <div>
-            <livewire:subscriptions />
+            <livewire:subscription.index />
         </div>
     </div>
 </x-layouts.app>

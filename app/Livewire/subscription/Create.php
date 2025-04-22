@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Subscription;
 
 use App\Models\Client;
 use App\Models\Membership;
@@ -8,7 +8,7 @@ use App\Models\Subscription;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 
-class SubscriptionForm extends Component
+class Create extends Component
 {
     public $ci;
     public $client_id;
@@ -106,6 +106,6 @@ class SubscriptionForm extends Component
 
     public function render()
     {
-        return view('livewire.subscription-form');
+        return view('livewire.subscription.create');
     }
 }
