@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class Client extends Model
 {
@@ -58,5 +59,13 @@ class Client extends Model
             'created_by' => $userName,
             'updated_by' => $userName,
         ]);
+    }
+
+    public function initials(): string
+    {
+        return Str::of($this->name)
+            ->explode(' ')
+            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->implode('');
     }
 }

@@ -68,7 +68,9 @@
         @forelse($clients as $client)
             <tr>
                 <x-gc.td variant="strong">
-                    {{ $client->name }}
+                    <flux:link :href="route('clients.show', $client)">
+                        {{ $client->name }}
+                    </flux:link>
                 </x-gc.td>
                 <x-gc.td>
                     {{ $client->ci }}

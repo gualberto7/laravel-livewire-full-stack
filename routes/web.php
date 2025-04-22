@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Models\Client;
 use App\Models\User;
 
 Route::get('/', function () {
@@ -63,6 +64,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', function () {
             return view('clients.create');
         })->name('create');
+
+        Route::get('/{client}', function (Client $client) {
+            return view('clients.show', compact('client'));
+        })->name('show');
     });
 
     Route::get('/reports', function () {
