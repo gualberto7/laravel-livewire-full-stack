@@ -8,6 +8,32 @@
                 icon="magnifying-glass"
             />
         </div>
+
+        <div class="flex items-center gap-2">
+            <flux:button 
+                wire:click="filterByStatus('all')" 
+                :variant="$subscriptionStatus === 'all' ? 'filled' : 'ghost'"
+                size="sm"
+            >
+                Todos
+            </flux:button>
+            <flux:button 
+                wire:click="filterByStatus('active')" 
+                :variant="$subscriptionStatus === 'active' ? 'filled' : 'ghost'"
+                color="emerald"
+                size="sm"
+            >
+                Activos
+            </flux:button>
+            <flux:button 
+                wire:click="filterByStatus('expired')" 
+                :variant="$subscriptionStatus === 'expired' ? 'filled' : 'ghost'"
+                color="red"
+                size="sm"
+            >
+                Vencidos
+            </flux:button>
+        </div>
         
         <div class="flex flex-wrap items-center gap-3">
             <div class="w-full sm:w-auto self-end">
@@ -31,7 +57,7 @@
                     Teléfono
                 </x-gc.th>
                 <x-gc.th>
-                    Email
+                    Estado
                 </x-gc.th>
                 <x-gc.th>
                     Acciones
@@ -51,7 +77,15 @@
                     {{ $client->phone }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $client->email }}
+                    @if ($client->subscriptions->count() > 0)
+                        <flux:badge :color="$client->subscriptions->first()->getStatusColor()">
+                            {{ ucfirst($client->subscriptions->first()->getStatus()) }}
+                        </flux:badge>
+                    @else
+                        <flux:badge color="gray">
+                            Sin suscripción
+                        </flux:badge>
+                    @endif
                 </x-gc.td>
                 <x-gc.td>
                     <div class="flex items-center gap-3">
