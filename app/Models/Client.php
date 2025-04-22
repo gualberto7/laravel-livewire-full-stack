@@ -68,4 +68,9 @@ class Client extends Model
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function subscriptionHistories(): HasMany
+    {
+        return $this->hasMany(SubscriptionHistory::class);
+    }
 }
