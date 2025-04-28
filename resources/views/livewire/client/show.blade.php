@@ -18,14 +18,6 @@ new class extends Component {
     @include('partials.client-detail-heading')
     
     <x-clients.layout :client="$client">
-        <x-slot:heading>
-            Detalle del cliente
-        </x-slot>
-        
-        <x-slot:subheading>
-            Detalle del cliente
-        </x-slot>
-
         <div class="px-4 py-5 sm:px-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
@@ -40,9 +32,9 @@ new class extends Component {
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/30">
-                        {{ $client->phone ?? 'Sin teléfono' }}
-                    </span>
+                    <flux:button variant="primary" size="sm" href="{{ route('clients.edit', $client->id) }}" navigate>
+                        {{ __('Editar') }}
+                    </flux:button>
                 </div>
             </div>
         </div>
@@ -50,9 +42,16 @@ new class extends Component {
         <div class="border-t border-gray-200 dark:border-gray-700">
             <dl class="divide-y divide-gray-200 dark:divide-gray-700">
                 <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Teléfono</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Celular</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:col-span-2 sm:mt-0">
                         {{ $client->phone ?? 'No especificado' }}
+                    </dd>
+                </div>
+
+                <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Carnet de Identidad</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:col-span-2 sm:mt-0">
+                        {{ $client->ci }}
                     </dd>
                 </div>
 
