@@ -29,13 +29,7 @@ new class extends Component {
         <div class="px-4 py-5 sm:px-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <div class="flex-shrink-0">
-                        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
-                            <span class="text-2xl font-medium text-gray-600 dark:text-gray-300">
-                                {{ $client->initials() }}
-                            </span>
-                        </div>
-                    </div>
+                    <x-gc.avatar :name="$client->name" />
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                             {{ $client->name }}
