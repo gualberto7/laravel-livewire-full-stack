@@ -65,9 +65,14 @@ Route::middleware(['auth'])->group(function () {
             return view('clients.create');
         })->name('create');
 
-        Route::get('/{client}', function (Client $client) {
-            return view('clients.show', compact('client'));
-        })->name('show');
+        // Route::get('/{client}', function (Client $client) {
+        //     return view('clients.show', compact('client'));
+        // })->name('show');
+
+        Volt::route('/{client}', 'client.show')->name('show');
+        Volt::route('/{client}/subscriptions', 'client.subscriptions')->name('subscriptions');
+        Volt::route('/{client}/check-ins', 'client.check-ins')->name('check-ins');
+        Volt::route('/{client}/subscription-history', 'client.subscription-history')->name('subscription-history');
     });
 
     Route::get('/reports', function () {
