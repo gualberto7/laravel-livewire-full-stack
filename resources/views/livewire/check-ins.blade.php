@@ -1,19 +1,21 @@
 <div>
     <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-4">
-            <flux:label>Buscar cliente por CI</flux:label>
-            <div class="flex gap-x-4">
-                <div class="flex-1">
-                    <flux:input 
-                        wire:model.live.debounce.300ms="search" 
-                        placeholder="Buscar por nombre o CI..." />
-                </div>
-            </div>
+            <flux:field>
+                <flux:input
+                    class="max-w-xs"
+                    wire:model.live.debounce.300ms="search" 
+                    placeholder="Buscar por nombre o CI..."
+                    icon="magnifying-glass"
+                    clearable
+                />
+            </flux:field>
+
         </div>
         <div>
-            <flux:select>
-                @foreach ([5, 10, 25, 50] as $value)
-                    <flux:select.option wire:click="$set('perPage', {{ $value }})" :active="$perPage === $value">
+            <flux:select wire:model.live="perPage">
+                @foreach ([15, 30, 45, 60] as $value)
+                    <flux:select.option :value="$value">
                         {{ $value }} por página
                     </flux:select.option>
                 @endforeach

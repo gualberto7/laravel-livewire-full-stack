@@ -21,6 +21,7 @@ class CheckIns extends Component
         'sortField' => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
         'page' => ['except' => 1],
+        'perPage' => ['except' => 15],
     ];
 
     public function mount()
@@ -39,6 +40,11 @@ class CheckIns extends Component
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
