@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Subscription;
 
+use Masmerise\Toaster\Toastable;
 use App\Models\Subscription;
 use App\Models\Gym;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use App\Models\Client;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WithPagination, Toastable;
 
     public $search = '';
     public $sortField = 'start_date';
@@ -50,6 +51,7 @@ class Index extends Component
     {
         $client = Client::find($clientId);
         $client->checkIn($this->currentGym->id, auth()->user()->name);
+        $this->info('Check-in registrado correctamente');
     }
     
     public function render()

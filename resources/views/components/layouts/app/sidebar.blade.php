@@ -138,6 +138,8 @@
             </flux:dropdown>
         </flux:header>
 
+        <x-toaster-hub />
+
         {{ $slot }}
 
         @fluxScripts
