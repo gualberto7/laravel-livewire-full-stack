@@ -13,7 +13,7 @@ class CheckIns extends Component
     public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
-    public $perPage = 10;
+    public $perPage = 15;
     public $currentGym;
 
     protected $queryString = [

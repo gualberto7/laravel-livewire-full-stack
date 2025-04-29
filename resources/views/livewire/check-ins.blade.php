@@ -27,10 +27,10 @@
                 Cliente
             </x-gc.th>
             <x-gc.th>
-                Gimnasio
+                Fecha
             </x-gc.th>
-            <x-gc.th wire:click="sortBy('created_at')" :sortField="$sortField" :sortDirection="$sortDirection" sortable>
-                Fecha y hora
+            <x-gc.th>
+                Hora
             </x-gc.th>
             <x-gc.th>
                 Registrado por
@@ -40,16 +40,15 @@
         @forelse ($checkIns as $checkIn)
             <tr>
                 <x-gc.td>
-                    <div class="flex flex-col">
-                        <span class="font-medium">{{ $checkIn->client->name }}</span>
-                        <span class="text-sm text-gray-500">CI: {{ $checkIn->client->ci }}</span>
-                    </div>
+                    <flux:link :href="route('clients.show', $checkIn->client->id)">
+                        {{ $checkIn->client->name }}
+                    </flux:link>
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $checkIn->gym->name }}
+                    {{ $checkIn->created_at->format('d/m/Y') }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $checkIn->created_at->format('d/m/Y H:i:s') }}
+                    {{ $checkIn->created_at->format('H:i') }}
                 </x-gc.td>
                 <x-gc.td>
                     {{ $checkIn->created_by }}
