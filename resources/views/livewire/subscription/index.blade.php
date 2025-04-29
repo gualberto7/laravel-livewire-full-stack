@@ -17,7 +17,7 @@
                     </flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:button color="primary" icon="plus" href="{{ route('subscriptions.create') }}" navigate>
+            <flux:button variant="primary" icon="plus" href="{{ route('subscriptions.create') }}" navigate>
                 Crear Suscripción   
             </flux:button>
         </div>
@@ -47,13 +47,15 @@
         @forelse ($subscriptions as $subscription)
             <tr>
                 <x-gc.td variant="strong">
-                    {{ $subscription->client->name ?? 'N/A' }}
+                    <flux:link :href="route('clients.show', $subscription->client->id)">
+                        {{ $subscription->client->name }}
+                    </flux:link>
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $subscription->membership->name ?? 'N/A' }}
+                    {{ $subscription->membership->name }}
                 </x-gc.td>
                 <x-gc.td>
-                    {{ $subscription->end_date->format('d/m/Y') ?? 'N/A' }}
+                    {{ $subscription->end_date->format('d/m/Y') }}
                 </x-gc.td>
                 <x-gc.td>
                     <flux:badge :color="$subscription->getStatusColor()">

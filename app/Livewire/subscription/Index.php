@@ -15,7 +15,7 @@ class Index extends Component
     public $search = '';
     public $sortField = 'start_date';
     public $sortDirection = 'desc';
-    public $perPage = 10;
+    public $perPage = 15;
     public $currentGym;
 
     protected $queryString = [
