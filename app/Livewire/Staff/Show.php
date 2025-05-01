@@ -25,7 +25,7 @@ class Show extends Component
 
     public function render()
     {
-        $role = $this->staffMember->getRoleInGym($this->currentGym);
+        $role = 'Test';//$this->staffMember->getRoleInGym($this->currentGym);
         $permissions = $this->staffMember->getAllPermissions()->pluck('name');
         $roles = $this->staffMember->getRoleNames();
 

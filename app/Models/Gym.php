@@ -51,16 +51,9 @@ class Gym extends Model
     /**
      * Get the users associated with the gym.
      */
-    public function users(): BelongsToMany
+    public function users(): HasMany
     {
-        return $this->belongsToMany(User::class)
-            ->withPivot('role', 'is_active')
-            ->withTimestamps()
-            ->select(['users.*', 'gym_user.role'])
-            ->withCasts([
-                'role' => 'string',
-                'is_active' => 'boolean',
-            ]);
+        return $this->hasMany(User::class);
     }
 
     /**

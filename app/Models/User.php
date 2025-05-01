@@ -72,11 +72,9 @@ class User extends Authenticatable
     /**
      * Get the gyms where the user is a staff member.
      */
-    public function staffGyms(): BelongsToMany
+    public function staffGym(): BelongsTo
     {
-        return $this->belongsToMany(Gym::class)
-            ->withPivot('role', 'is_active')
-            ->withTimestamps();
+        return $this->belongsTo(Gym::class, 'gym_id');
     }
 
     /**
@@ -84,7 +82,7 @@ class User extends Authenticatable
      */
     public function allGyms()
     {
-        return $this->ownedGyms->merge($this->staffGyms);
+        return $this->ownedGyms;
     }
 
     /**
@@ -100,28 +98,7 @@ class User extends Authenticatable
      */
     public function isStaffOfGym(Gym $gym): bool
     {
-        return $this->staffGyms()->where('gym_id', $gym->id)->exists();
-    }
-
-    /**
-     * Get the role of the user in a specific gym.
-     */
-    public function getRoleInGym(Gym $gym): ?string
-    {
-        if ($this->ownsGym($gym)) {
-            return 'owner';
-        }
-
-        $staffRelation = $this->staffGyms()->where('gym_id', $gym->id)->first();
-        return $staffRelation ? $staffRelation->pivot->role : null;
-    }
-
-    /**
-     * Check if the user has a specific role in a gym.
-     */
-    public function hasRoleInGym(Gym $gym, string $role): bool
-    {
-        return $this->getRoleInGym($gym) === $role;
+        return $this->staffGym->id === $gym->id;
     }
 
     /**
@@ -169,7 +146,7 @@ class User extends Authenticatable
         
         if (!$gymId) {
             // Si no hay preferencia, intentar obtener el primer gimnasio
-            $gym = $this->ownedGyms()->first() ?? $this->staffGyms()->first();
+            $gym = $this->ownedGyms()->first() ?? $this->staffGym;
             
             if ($gym) {
                 $this->setPreference('current_gym_id', $gym->id);

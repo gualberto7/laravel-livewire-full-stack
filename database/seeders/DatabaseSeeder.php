@@ -31,19 +31,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $ownerUser->assignRole('gym-owner');
 
-        // Create a test user
-        $adminUser = User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@test.com',
-        ]);
-        $adminUser->assignRole('gym-admin');
-
-        $instructorUser = User::factory()->create([
-            'name' => 'Instructor User',
-            'email' => 'instructor@test.com',
-        ]);
-        $instructorUser->assignRole('gym-instructor');
-
         $gym = Gym::create([
             'name' => 'Gym 1',
             'address' => '123 Main St',
@@ -59,12 +46,20 @@ class DatabaseSeeder extends Seeder
             'owner_id' => $ownerUser->id,
         ]);
 
-        $gym->users()->attach($ownerUser, ['role' => 'gym-owner']);
-        $gym2->users()->attach($ownerUser, ['role' => 'gym-owner']);
+        // Create a test user
+        $adminUser = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@test.com',
+            'gym_id' => $gym->id,
+        ]);
+        $adminUser->assignRole('gym-admin');
 
-        $gym->users()->attach($adminUser, ['role' => 'gym-admin']);
-
-        $gym->users()->attach($instructorUser, ['role' => 'gym-instructor']);
+        $instructorUser = User::factory()->create([
+            'name' => 'Instructor User',
+            'email' => 'instructor@test.com',
+            'gym_id' => $gym->id,
+        ]);
+        $instructorUser->assignRole('gym-instructor');
 
         $ownerUser2 = User::factory()->create([
             'name' => 'Owner User 2',
@@ -78,8 +73,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'gym3@test.com',
             'owner_id' => $ownerUser2->id,
         ]);
-
-        $gym3->users()->attach($ownerUser2, ['role' => 'gym-owner']);
 
         $this->call([
             ClientSeeder::class
