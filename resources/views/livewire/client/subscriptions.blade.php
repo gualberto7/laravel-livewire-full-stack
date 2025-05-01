@@ -2,14 +2,18 @@
 
 use App\Models\Client;
 use Livewire\Volt\Component;
+use App\Traits\VerifiesGymAccess;
 
 new class extends Component {
+    use VerifiesGymAccess;
+
     public Client $client;
     public $subscription;
     public $items = [];
 
     public function mount(Client $client)
     {
+        $this->verifyGymAccess($client);
         $this->client = $client;
         $this->subscription = $client->subscriptions()->with('membership')->where('end_date', '>=', now())->first();
         $this->items = $this->subscription ? $this->setItem($this->subscription) : [];
@@ -56,7 +60,6 @@ new class extends Component {
     @include('partials.client-detail-heading')
 
     <x-clients.layout :client="$client">
-
         <x-slot:heading>
             Suscripción actual
         </x-slot>

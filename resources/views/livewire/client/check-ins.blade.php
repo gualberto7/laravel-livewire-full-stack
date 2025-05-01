@@ -2,14 +2,18 @@
 
 use App\Models\Client;
 use Livewire\Volt\Component;
+use App\Traits\VerifiesGymAccess;
 
 new class extends Component {
+    use VerifiesGymAccess;
+
     public Client $client;
     public $currentGym;
     public $checkIns;
 
     public function mount(Client $client)
     {
+        $this->verifyGymAccess($client);
         $this->client = $client;
         $this->currentGym = auth()->user()->getCurrentGym();
         $this->checkIns = $client->checkIns()

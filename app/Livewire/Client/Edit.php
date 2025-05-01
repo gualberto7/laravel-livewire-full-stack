@@ -5,11 +5,11 @@ namespace App\Livewire\Client;
 use App\Models\Client;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
+use App\Traits\VerifiesGymAccess;
 
 class Edit extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, VerifiesGymAccess;
 
     public Client $client;
     public $name;
@@ -21,6 +21,7 @@ class Edit extends Component
 
     public function mount($client)
     {
+        $this->verifyGymAccess($client);
         $this->client = $client;
         $this->name = $client->name;
         $this->ci = $client->ci;
