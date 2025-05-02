@@ -13,6 +13,15 @@
 
         </div>
         <div>
+            <flux:select wire:model.live="selectedDay">
+                @foreach ($daysOfWeek as $key => $day)
+                    <flux:select.option :value="$key">
+                        {{ $day }}
+                    </flux:select.option>
+                @endforeach
+            </flux:select>
+        </div>
+        <div>
             <flux:select wire:model.live="perPage">
                 @foreach ([15, 30, 45, 60] as $value)
                     <flux:select.option :value="$value">
