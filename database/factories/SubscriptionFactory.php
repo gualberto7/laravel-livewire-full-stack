@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Membership;
+use App\Models\Client;
+use App\Models\Gym;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
@@ -19,6 +22,9 @@ class SubscriptionFactory extends Factory
         return [
             'start_date' => now(),
             'end_date' => now()->addDays(30),
+            'membership_id' => Membership::factory(),
+            'client_id' => Client::factory(),
+            'gym_id' => Gym::factory(),
             'created_by' => 'seeder',
             'updated_by' => 'seeder',
         ];

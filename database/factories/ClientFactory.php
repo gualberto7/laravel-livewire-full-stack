@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Gym;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Client>
  */
@@ -22,6 +22,7 @@ class ClientFactory extends Factory
             'phone' => fake()->unique()->phoneNumber(),
             'email' => fake()->unique()->email(),
             'avatar' => fake()->imageUrl(),
+            'gym_id' => Gym::factory(),
         ];
     }
 }

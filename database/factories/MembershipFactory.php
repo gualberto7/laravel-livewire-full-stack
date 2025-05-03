@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Gym;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Membership>
  */
@@ -23,7 +23,7 @@ class MembershipFactory extends Factory
             'description' => fake()->sentence(),
             'created_by' => 'seeder',
             'updated_by' => 'seeder',
-            'gym_id' => 1,
+            'gym_id' => Gym::factory(),
         ];
     }
 }
