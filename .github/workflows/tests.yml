@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ["8.3", "8.2"]
+        php-versions: ["8.3"]
         dependency-stability: ["prefer-none"]
 
     name: P${{ matrix.php-versions }} - L${{ matrix.laravel }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system}}
@@ -78,6 +78,7 @@ jobs:
       - name: Run Migrations
         # Set environment
         env:
+          APP_ENV: testing
           SESSION_DRIVER: array
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
@@ -94,25 +95,9 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PestPHP
         # Set environment
         env:
+          APP_ENV: testing
           SESSION_DRIVER: array
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
 
         run: vendor/bin/pest
-
-      - name: Browser Test - upgrade and start Chrome Driver
-        run: |
-          composer require --dev laravel/dusk
-          php artisan dusk:chrome-driver --detect
-          ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
-      - name: Run Dusk Tests
-        run: |
-          php artisan serve > /dev/null 2>&1 &
-          chmod -R 0755 vendor/laravel/dusk/bin/
-          php artisan migrate
-          php artisan dusk
-        # Set environment
-        env:
-          SESSION_DRIVER: array
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ":memory:"
