@@ -32,15 +32,15 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Install PHP versions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
       - name: Install NPM packages
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build frontend
         run: npm run build
-      - name: Install PHP versions
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
       - name: Get Composer Cache Directory 2
         id: composer-cache
         run: |
