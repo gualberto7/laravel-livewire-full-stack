@@ -75,7 +75,7 @@ function createUserGymMembership($role)
 function createUserGymMembershipAndSubscription($role)
 {
     $data = createUserGymMembership($role);
-    $client = Client::factory()->create();
+    $client = Client::factory()->create(['name' => 'Client Test', 'gym_id' => $data['gym']->id]);
     $subscription = Subscription::factory()->create([
         'gym_id' => $data['gym']->id,
         'client_id' => $client->id,

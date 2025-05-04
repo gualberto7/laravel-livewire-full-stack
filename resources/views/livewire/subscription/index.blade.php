@@ -10,9 +10,9 @@
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <flux:select>
+            <flux:select wire:model.live="perPage">
                 @foreach ([10, 15, 30, 50] as $value)
-                    <flux:select.option wire:click="$set('perPage', {{ $value }})" :active="$perPage === $value">
+                    <flux:select.option :value="$value">
                         {{ $value }} por página
                     </flux:select.option>
                 @endforeach

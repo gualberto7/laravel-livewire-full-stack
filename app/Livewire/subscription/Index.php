@@ -47,6 +47,11 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
     public function registerCheckIn($clientId)
     {
         $client = Client::find($clientId);
