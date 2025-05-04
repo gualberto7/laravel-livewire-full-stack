@@ -36,11 +36,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-      - name: Install NPM packages
-        if: steps.node_modules-cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Build frontend
-        run: npm run build
       - name: Get Composer Cache Directory 2
         id: composer-cache
         run: |
@@ -63,6 +58,11 @@ jobs:
       - name: Install Dependencies
         if: steps.vendor-cache.outputs.cache-hit != 'true'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Install NPM packages
+        if: steps.node_modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Build frontend
+        run: npm run build
 
       - name: Update Dependencies with latest stable
         if: matrix.dependency-stability == 'prefer-stable'
