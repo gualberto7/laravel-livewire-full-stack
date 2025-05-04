@@ -1,5 +1,12 @@
 <?php
 
+use App\Models\Gym;
+use App\Models\User;
+use App\Models\Client;
+use App\Models\Membership;
+use App\Models\Subscription;
+use Spatie\Permission\Models\Role;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -13,7 +20,10 @@
 
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature', 'Unit');
+    ->in('Feature', 'Unit')
+    ->beforeEach(function () {
+        $this->seed(\Database\Seeders\RolesAndPermissionsSeeder::class);
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +51,36 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function addRole($user, $role)
 {
-    // ..
+    $role = Role::whereName($role)->first();
+    $user->assignRole($role);
+}
+
+function createUserGymMembership($role)
+{
+    $user = User::factory()->create();
+    addRole($user, $role);
+
+    $gym = $role === 'gym-admin' ? Gym::factory()->create() : Gym::factory()->create(['owner_id' => $user->id]);
+
+    if($role === 'gym-admin') {
+        $user->update(['gym_id' => $gym->id]);
+    }
+    $membership = Membership::factory()->create(['gym_id' => $gym->id]);
+
+    return compact('user', 'gym', 'membership');
+}
+
+function createUserGymMembershipAndSubscription($role)
+{
+    $data = createUserGymMembership($role);
+    $client = Client::factory()->create();
+    $subscription = Subscription::factory()->create([
+        'gym_id' => $data['gym']->id,
+        'client_id' => $client->id,
+        'membership_id' => $data['membership']->id,
+    ]);
+
+    return array_merge($data, compact('client', 'subscription'));
 }
