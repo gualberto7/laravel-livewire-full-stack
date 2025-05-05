@@ -58,6 +58,14 @@ jobs:
       - name: Install Dependencies
         if: steps.vendor-cache.outputs.cache-hit != 'true'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Dump autoload and optimize
+        run: |
+          composer dump-autoload
+          php artisan optimize:clear
+          php artisan config:clear
+          php artisan cache:clear
+
       - name: Install NPM packages
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
         run: npm ci
