@@ -72,7 +72,6 @@ jobs:
           composer dump-autoload
           php artisan optimize:clear
           php artisan config:clear
-          php artisan cache:clear
 
       - name: Generate key
         run: php artisan key:generate
