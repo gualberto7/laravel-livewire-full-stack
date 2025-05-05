@@ -72,6 +72,7 @@
 
         <!-- Botón de guardar -->
         <div class="flex justify-end">
+            <flux:button  type="button" variant="ghost" href="{{ route('subscriptions.index') }}" navigate>Cancelar</flux:button>
             <flux:button variant="primary" type="submit" :disabled="!$selectedClient || !$membership_id">
                 Crear suscripción
             </flux:button>
