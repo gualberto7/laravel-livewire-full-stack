@@ -1,8 +1,7 @@
 <?php
 
-use App\Livewire\Subscription\Index;
 use App\Models\Subscription;
-use Livewire\Livewire;
+use App\Livewire\Subscription\Index;
 
 test('display subscriptions items', function () {
     $data = createUserGymMembershipAndSubscription('gym-owner');

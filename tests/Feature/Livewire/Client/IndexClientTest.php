@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Client;
-use Livewire\Livewire;
 use App\Models\Subscription;
 use App\Livewire\Client\Index;
 

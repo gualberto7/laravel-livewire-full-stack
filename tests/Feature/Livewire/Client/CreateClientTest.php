@@ -1,6 +1,5 @@
 <?php
 
-use Livewire\Livewire;
 use App\Models\Client;
 use App\Livewire\Client\Create;
 
