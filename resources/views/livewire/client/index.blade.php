@@ -51,7 +51,7 @@
                     Nombre
                 </x-gc.th>
                 <x-gc.th>
-                    CI
+                    Carnet
                 </x-gc.th>
                 <x-gc.th>
                     Teléfono
