@@ -23,7 +23,6 @@ return new class extends Migration
             
             // Índices compuestos para garantizar unicidad dentro del mismo gimnasio
             $table->unique(['ci', 'gym_id']);
-            $table->unique(['email', 'gym_id']);
         });
     }
 

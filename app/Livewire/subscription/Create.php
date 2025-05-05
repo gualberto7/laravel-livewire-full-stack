@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Subscription;
 
+use Flux\Flux;
 use App\Models\Client;
-use App\Models\Membership;
-use App\Models\Subscription;
 use Livewire\Component;
+use App\Models\Membership;
+use Livewire\Attributes\On;
+use App\Models\Subscription;
 use Illuminate\Support\Carbon;
 
 class Create extends Component
@@ -48,6 +50,17 @@ class Create extends Component
                 $this->client_id = null;
             }
         }
+    }
+
+    public function openModal()
+    {
+        Flux::modal('create-client')->show();
+    }
+
+    public function clientCreated()
+    {
+        $this->selectedClient = Client::where('ci', $this->ci)->first();
+        $this->client_id = $this->selectedClient->id;
     }
 
     public function deselectClient()

@@ -2,18 +2,23 @@
 
 namespace App\Livewire\Client;
 
+use Flux\Flux;
 use App\Models\Client;
 use Livewire\Component;
+use Masmerise\Toaster\Toastable;
 use Illuminate\Support\Facades\Storage;
 
 class Create extends Component
 {
+    use Toastable;
+
     public $name = '';
     public $ci = '';
     public $phone = '';
     public $email = '';
     public $avatar = null;
     public $currentGym;
+    public $fromModal = false;
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -90,23 +95,20 @@ class Create extends Component
             'gym_id' => $this->currentGym->id,
         ];
 
-        // Si se subió una imagen, guardarla
         if ($this->avatar) {
             $path = $this->avatar->store('avatars', 'public');
             $clientData['avatar'] = $path;
         }
 
-        // Crear el cliente
-        Client::create($clientData);
+        $client = Client::create($clientData);
 
-        session()->flash('notify', [
-            'title' => 'Cliente creado',
-            'message' => 'El cliente se ha creado correctamente',
-            'type' => 'success',
-        ]);
+        $this->info('Cliente creado correctamente');
 
-        // Redirigir a la lista de clientes
-        return redirect()->route('clients.index');
+        if (!$this->fromModal) {
+            return redirect()->route('clients.index');
+        } else {
+            Flux::modal('create-client')->close();
+        }
     }
 
     public function render()

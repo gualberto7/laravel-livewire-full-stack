@@ -1,8 +1,10 @@
+@props(['fromModal' => false])
+
 <div>
     <div class="mb-6">
         <form wire:submit="save" class="space-y-6">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 gap-6 {{ $fromModal ? 'md:grid-cols-1' : 'md:grid-cols-2' }}">
                 <div class="space-y-2">
                     <flux:label for="name">Nombre completo</flux:label>
                     <flux:input 
@@ -61,9 +63,11 @@
             </div>
 
             <div class="flex justify-end gap-3">
-                <flux:button type="button" variant="ghost" href="{{ route('clients.index') }}" navigate>
-                    Cancelar
-                </flux:button>
+                @if(!$fromModal)
+                    <flux:button type="button" variant="ghost" href="{{ route('clients.index') }}" navigate>
+                        Cancelar
+                    </flux:button>
+                @endif
                 <flux:button type="submit" variant="primary">
                     Crear cliente
                 </flux:button>
