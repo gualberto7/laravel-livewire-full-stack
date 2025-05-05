@@ -11,11 +11,11 @@
                         id="name"
                         wire:model.live="name" 
                         placeholder="Ingrese el nombre completo del cliente" />
-                    @error('name') <flux:error>{{ $message }}</flux:error> @enderror
+                    <flux:error name="name" />
                 </div>
 
                 <div class="space-y-2">
-                    <flux:label for="ci">Cédula de identidad</flux:label>
+                    <flux:label for="ci">Carnet de identidad</flux:label>
                     <flux:input 
                         id="ci"
                         wire:model.live="ci" 
@@ -24,41 +24,22 @@
                 </div>
 
                 <div class="space-y-2">
-                    <flux:label for="phone">Teléfono</flux:label>
+                    <flux:label for="phone">Celular</flux:label>
                     <flux:input 
                         id="phone"
                         wire:model.live="phone" 
-                        placeholder="Ingrese el teléfono del cliente" />
+                        placeholder="Ingrese el celular del cliente" />
                     <flux:error name="phone" />
                 </div>
 
                 <div class="space-y-2">
-                    <flux:label for="email">Email (opcional)</flux:label>
+                    <flux:label for="email">Correo electrónico (opcional)</flux:label>
                     <flux:input 
                         id="email"
                         type="email"
                         wire:model.live="email" 
                         placeholder="Ingrese el email del cliente" />
                     <flux:error name="email" />
-                </div>
-
-                <div class="space-y-2">
-                    <flux:label for="avatar">Foto de perfil (opcional)</flux:label>
-                    <div class="flex items-center gap-4">
-                        <div class="flex-1">
-                            <flux:input 
-                                id="avatar"
-                                type="file"
-                                wire:model.live="avatar" 
-                                accept="image/*" />
-                        </div>
-                        @if($avatar)
-                            <div class="h-10 w-10 rounded-full overflow-hidden">
-                                <img src="{{ $avatar->temporaryUrl() }}" alt="Vista previa" class="h-full w-full object-cover">
-                            </div>
-                        @endif
-                    </div>
-                    <flux:error name="avatar" />
                 </div>
             </div>
 

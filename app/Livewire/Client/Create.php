@@ -16,7 +16,6 @@ class Create extends Component
     public $ci = '';
     public $phone = '';
     public $email = '';
-    public $avatar = null;
     public $currentGym;
     public $fromModal = false;
 
@@ -25,19 +24,16 @@ class Create extends Component
         'ci' => 'required|min:6',
         'phone' => 'required|min:7',
         'email' => 'nullable|email',
-        'avatar' => 'nullable|image|max:1024', // Máximo 1MB
     ];
 
     protected $messages = [
         'name.required' => 'El nombre es obligatorio',
         'name.min' => 'El nombre debe tener al menos 3 caracteres',
-        'ci.required' => 'El CI es obligatorio',
-        'ci.min' => 'El CI debe tener al menos 6 caracteres',
-        'phone.required' => 'El teléfono es obligatorio',
-        'phone.min' => 'El teléfono debe tener al menos 7 caracteres',
+        'ci.required' => 'El carnet de identidad es obligatorio',
+        'ci.min' => 'El carnet de identidad debe tener al menos 6 caracteres',
+        'phone.required' => 'El celular es obligatorio',
+        'phone.min' => 'El celular debe tener al menos 7 caracteres',
         'email.email' => 'El email debe ser válido',
-        'avatar.image' => 'El archivo debe ser una imagen',
-        'avatar.max' => 'La imagen no debe superar 1MB',
     ];
 
     public function boot()
@@ -51,7 +47,7 @@ class Create extends Component
                     ->exists();
                 
                 if ($exists) {
-                    $fail('Este CI ya está registrado en este gimnasio.');
+                    $fail('Este nro. de carnet ya está registrado en este gimnasio.');
                 }
             }
         ];
@@ -94,11 +90,6 @@ class Create extends Component
             'email' => $this->email,
             'gym_id' => $this->currentGym->id,
         ];
-
-        if ($this->avatar) {
-            $path = $this->avatar->store('avatars', 'public');
-            $clientData['avatar'] = $path;
-        }
 
         $client = Client::create($clientData);
 
