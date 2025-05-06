@@ -66,7 +66,7 @@
                     <flux:button
                         size="sm"
                         wire:click="registerCheckIn('{{ $subscription->client->id }}')"
-                        :disabled="$subscription->getStatus() !== 'active'"
+                        :disabled="$subscription->getStatus() !== 'activa'"
                     >
                         Registrar entrada
                     </flux:button>
