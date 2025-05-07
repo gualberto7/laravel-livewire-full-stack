@@ -9,27 +9,27 @@
                     <flux:label for="name">Nombre completo</flux:label>
                     <flux:input 
                         id="name"
-                        wire:model.blur="name" 
+                        wire:model.blur="form.name" 
                         placeholder="Ingrese el nombre completo del cliente" />
-                    <flux:error name="name" />
+                    <flux:error name="form.name" />
                 </div>
 
                 <div class="space-y-2">
                     <flux:label for="ci">Carnet de identidad</flux:label>
                     <flux:input 
                         id="ci"
-                        wire:model.blur="ci" 
+                        wire:model.blur="form.ci" 
                         placeholder="Ingrese el CI del cliente" />
-                    <flux:error name="ci" />
+                    <flux:error name="form.ci" />
                 </div>
 
                 <div class="space-y-2">
                     <flux:label for="phone">Celular</flux:label>
                     <flux:input 
                         id="phone"
-                        wire:model.blur="phone" 
+                        wire:model.blur="form.phone" 
                         placeholder="Ingrese el celular del cliente" />
-                    <flux:error name="phone" />
+                    <flux:error name="form.phone" />
                 </div>
 
                 <div class="space-y-2">
@@ -37,9 +37,9 @@
                     <flux:input 
                         id="email"
                         type="email"
-                        wire:model.blur="email" 
+                        wire:model.blur="form.email" 
                         placeholder="Ingrese el email del cliente" />
-                    <flux:error name="email" />
+                    <flux:error name="form.email" />
                 </div>
             </div>
 

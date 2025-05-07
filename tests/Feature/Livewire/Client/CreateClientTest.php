@@ -20,10 +20,10 @@ test('verify create client successfully', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('name', 'John Doe')
-        ->set('ci', '7526375')
-        ->set('phone', '78669441')
-        ->set('email', 'john.doe@example.com')
+        ->set('form.name', 'John Doe')
+        ->set('form.ci', '7526375')
+        ->set('form.phone', '78669441')
+        ->set('form.email', 'john.doe@example.com')
         ->call('save')
         ->assertRedirect(route('clients.index'));
 
@@ -41,10 +41,10 @@ test('verify create client with errors', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('name', '')
-        ->set('ci', '')
-        ->set('phone', '')
-        ->set('email', '')
+        ->set('form.name', '')
+        ->set('form.ci', '')
+        ->set('form.phone', '')
+        ->set('form.email', '')
         ->call('save')
         ->assertSee('El campo nombre es obligatorio.')
         ->assertSee('El campo carnet es obligatorio.')
@@ -61,7 +61,7 @@ test('verify create client with existing ci', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('ci', '7526375')
+        ->set('form.ci', '7526375')
         ->call('save')
         ->assertSee('Este nro. de carnet ya está registrado en este gimnasio.')
         ->assertHasErrors();
@@ -72,10 +72,10 @@ test('verify redirect to clients index after create client', function () {
 
     $response = Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('name', 'John Doe')
-        ->set('ci', '7526375')
-        ->set('phone', '78669441')
-        ->set('email', 'john.doe@example.com')
+        ->set('form.name', 'John Doe')
+        ->set('form.ci', '7526375')
+        ->set('form.phone', '78669441')
+        ->set('form.email', 'john.doe@example.com')
         ->call('save')
         ->assertRedirect(route('clients.index'));
 });
