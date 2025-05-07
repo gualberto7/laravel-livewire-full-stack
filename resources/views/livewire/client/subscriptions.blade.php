@@ -15,7 +15,7 @@ new class extends Component {
     {
         $this->verifyGymAccess($client);
         $this->client = $client;
-        $this->subscription = $client->subscriptions()->with('membership')->where('end_date', '>=', now())->first();
+        $this->subscription = $client->subscriptions()->with('membership')->latest()->first();
         $this->items = $this->subscription ? $this->setItem($this->subscription) : [];
     }
 
