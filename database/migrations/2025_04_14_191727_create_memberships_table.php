@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('price');
             $table->integer('duration'); // in days
-            $table->integer('max_entries')->nullable();
+            $table->integer('max_checkins')->nullable();
             $table->string('description')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('is_promo')->default(false);

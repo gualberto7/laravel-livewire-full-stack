@@ -18,7 +18,7 @@ class MembershipForm extends Component
     public $duration = 30;
 
     #[Rule('nullable|integer|min:1')]
-    public $max_entries = null;
+    public $max_checkins = null;
 
     #[Rule('nullable|string|max:1000')]
     public $description = '';
@@ -47,7 +47,7 @@ class MembershipForm extends Component
             'name' => $this->name,
             'price' => $this->price,
             'duration' => $this->duration,
-            'max_entries' => $this->max_entries,
+            'max_checkins' => $this->max_checkins,
             'description' => $this->description,
             'is_promo' => $this->is_promo,
             'promo_start_date' => $this->is_promo ? $this->promo_start_date : null,

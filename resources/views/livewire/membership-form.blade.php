@@ -20,9 +20,9 @@
             </flux:field>
 
             <flux:field>
-                <flux:label for="max_entries">Entradas máximas</flux:label>
-                <flux:input id="max_entries" wire:model="max_entries" type="number" min="1" placeholder="Opcional" />
-                @error('max_entries') <flux:error>{{ $message }}</flux:error> @enderror
+                <flux:label for="max_checkins">Entradas máximas</flux:label>
+                <flux:input id="max_checkins" wire:model="max_checkins" type="number" min="1" placeholder="Opcional" />
+                @error('max_checkins') <flux:error>{{ $message }}</flux:error> @enderror
             </flux:field>
 
             <flux:field class="sm:col-span-2">
