@@ -46,9 +46,9 @@ test('verify create client with errors', function () {
         ->set('phone', '')
         ->set('email', '')
         ->call('save')
-        ->assertSee('El nombre es obligatorio')
-        ->assertSee('El carnet de identidad es obligatorio')
-        ->assertSee('El celular es obligatorio')
+        ->assertSee('El campo nombre es obligatorio.')
+        ->assertSee('El campo carnet es obligatorio.')
+        ->assertSee('El campo celular es obligatorio.')
         ->assertHasErrors();
 });
 

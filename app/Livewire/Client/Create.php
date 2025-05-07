@@ -6,77 +6,44 @@ use Flux\Flux;
 use App\Models\Client;
 use Livewire\Component;
 use Masmerise\Toaster\Toastable;
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Storage;
 
 class Create extends Component
 {
     use Toastable;
 
+    #[Validate('required|min:3', 'nombre')]
     public $name = '';
+
+    #[Validate('required|min:6', 'carnet')]
     public $ci = '';
+
+    #[Validate('required|min:7', 'celular')]
     public $phone = '';
+
+    #[Validate('nullable|email', 'correo')]
     public $email = '';
+
     public $currentGym;
     public $fromModal = false;
-
-    protected $rules = [
-        'name' => 'required|min:3',
-        'ci' => 'required|min:6',
-        'phone' => 'required|min:7',
-        'email' => 'nullable|email',
-    ];
-
-    protected $messages = [
-        'name.required' => 'El nombre es obligatorio',
-        'name.min' => 'El nombre debe tener al menos 3 caracteres',
-        'ci.required' => 'El carnet de identidad es obligatorio',
-        'ci.min' => 'El carnet de identidad debe tener al menos 6 caracteres',
-        'phone.required' => 'El celular es obligatorio',
-        'phone.min' => 'El celular debe tener al menos 7 caracteres',
-        'email.email' => 'El email debe ser válido',
-    ];
-
-    public function boot()
-    {
-        $this->rules['ci'] = [
-            'required',
-            'min:6',
-            function ($attribute, $value, $fail) {
-                $exists = Client::where('ci', $value)
-                    ->where('gym_id', $this->currentGym->id)
-                    ->exists();
-                
-                if ($exists) {
-                    $fail('Este nro. de carnet ya está registrado en este gimnasio.');
-                }
-            }
-        ];
-
-        $this->rules['email'] = [
-            'nullable',
-            'email',
-            function ($attribute, $value, $fail) {
-                if ($value) {
-                    $exists = Client::where('email', $value)
-                        ->where('gym_id', $this->currentGym->id)
-                        ->exists();
-                    
-                    if ($exists) {
-                        $fail('Este email ya está registrado en este gimnasio.');
-                    }
-                }
-            }
-        ];
-    }
 
     public function mount()
     {
         $this->currentGym = auth()->user()->getCurrentGym();
     }
 
-    public function updatedAvatar()
+    public function boot()
     {
-        $this->validateOnly('avatar');
+        $this->withValidator(function ($validator) {
+            $validator->after(function ($validator) {
+                if (Client::where('ci', $this->ci)
+                    ->where('gym_id', $this->currentGym->id)
+                    ->exists()) {
+                    $validator->errors()->add('ci', 'Este nro. de carnet ya está registrado en este gimnasio.');
+                }
+            });
+        });
     }
 
     public function save()
