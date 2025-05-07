@@ -9,9 +9,12 @@ use App\Models\Membership;
 use Livewire\Attributes\On;
 use App\Models\Subscription;
 use Illuminate\Support\Carbon;
+use Masmerise\Toaster\Toastable;
 
 class Create extends Component
 {
+    use Toastable;
+
     public $ci;
     public $client_id;
     public $membership_id;
@@ -98,21 +101,20 @@ class Create extends Component
             'end_date' => 'required|date|after:start_date',
         ]);
 
+        $membership = $this->memberships->firstWhere('id', $this->membership_id);
+
         Subscription::create([
             'client_id' => $this->client_id,
             'membership_id' => $this->membership_id,
             'gym_id' => $this->currentGym->id,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
+            'price' => $membership->price,
             'created_by' => auth()->user()->name,
             'updated_by' => auth()->user()->name,
         ]);
 
-        session()->flash('notify', [
-            'title' => 'Suscripción creada',
-            'message' => 'La suscripción se ha creado correctamente',
-            'type' => 'success',
-        ]);
+        $this->info('Suscripción creada correctamente');
 
         return $this->redirect(route('subscriptions.index'), navigate: true);
     }

@@ -28,13 +28,7 @@
                 <div class="rounded-lg bg-zinc-800 p-4">
                     <div class="flex items-center justify-between">
                         <p class="text-sm text-zinc-400">No se encontró ningún cliente con CI: {{ $ci }}</p>
-                        {{-- <flux:button size="xs" color="emerald" href="{{ route('clients.create') }}" navigate>
-                            <flux:icon.plus class="h-4 w-4" />
-                            Crear cliente
-                        </flux:button> --}}
-                        {{-- <flux:modal.trigger name="create-client"> --}}
-                            <flux:button size="sm" wire:click="openModal">Crear cliente</flux:button>
-                        {{-- </flux:modal.trigger> --}}
+                        <flux:button size="sm" wire:click="openModal">Crear cliente</flux:button>
                     </div>
                 </div>
             @endif
