@@ -22,6 +22,7 @@ class SubscriptionFactory extends Factory
         return [
             'start_date' => now(),
             'end_date' => now()->addDays(30),
+            'price' => '100',
             'membership_id' => Membership::factory(),
             'client_id' => Client::factory(),
             'gym_id' => Gym::factory(),

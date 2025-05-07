@@ -18,6 +18,9 @@ class Subscription extends Model
         'gym_id',
         'start_date',
         'end_date',
+        'price',
+        'payment_completed',
+        'notes',
         'created_by',
         'updated_by',
     ];

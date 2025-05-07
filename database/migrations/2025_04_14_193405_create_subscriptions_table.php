@@ -17,6 +17,9 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('created_by');
             $table->string('updated_by');
+            $table->string('price');
+            $table->boolean('payment_completed')->default(true);
+            $table->string('notes')->nullable();
             $table->foreignUuid('client_id')->constrained();
             $table->foreignUuid('membership_id')->constrained();
             $table->foreignUuid('gym_id')->constrained()->onDelete('cascade');
