@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Payment;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasPayments
 {
@@ -11,8 +12,15 @@ trait HasPayments
         return $this->morphMany(Payment::class, 'payable');
     }
 
-    public function addPayment(Payment $payment): void
+    public function addPayment(Payment $payment = null): void
     {
-        $this->payments()->create($payment->toArray());
+        if ($payment) {
+            $this->payments()->create($payment->toArray());
+        } else {
+            $this->payments()->create([
+                'method' => 'cash',
+                'status' => 'pending',
+            ]);
+        }
     }
 }

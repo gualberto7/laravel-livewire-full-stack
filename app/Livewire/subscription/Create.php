@@ -103,7 +103,7 @@ class Create extends Component
 
         $membership = $this->memberships->firstWhere('id', $this->membership_id);
 
-        Subscription::create([
+        $subscription = Subscription::create([
             'client_id' => $this->client_id,
             'membership_id' => $this->membership_id,
             'gym_id' => $this->currentGym->id,
@@ -113,6 +113,8 @@ class Create extends Component
             'created_by' => auth()->user()->name,
             'updated_by' => auth()->user()->name,
         ]);
+
+        $subscription->addPayment();
 
         $this->info('Suscripción creada correctamente');
 
