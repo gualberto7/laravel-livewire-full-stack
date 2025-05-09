@@ -22,10 +22,10 @@ test('verify create subscription successfully', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('client_id', $client->id)
-        ->set('membership_id', $data['membership']->id)
-        ->set('start_date', now()->addDays(1))
-        ->set('end_date', now()->addDays(30))
+        ->set('form.client_id', $client->id)
+        ->set('form.membership_id', $data['membership']->id)
+        ->set('form.start_date', now()->addDays(1))
+        ->set('form.end_date', now()->addDays(30))
         ->call('save')
         ->assertHasNoErrors();
 
@@ -42,10 +42,10 @@ test('verify create subscription with payment', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('client_id', $client->id)
-        ->set('membership_id', $data['membership']->id)
-        ->set('start_date', now()->addDays(1))
-        ->set('end_date', now()->addDays(30))
+        ->set('form.client_id', $client->id)
+        ->set('form.membership_id', $data['membership']->id)
+        ->set('form.start_date', now()->addDays(1))
+        ->set('form.end_date', now()->addDays(30))
         ->call('save')
         ->assertHasNoErrors();
 

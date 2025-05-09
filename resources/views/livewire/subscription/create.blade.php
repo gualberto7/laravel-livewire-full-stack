@@ -37,7 +37,7 @@
         <!-- Selección de membresía -->
         <div class="space-y-2">
             <flux:label>Membresía</flux:label>
-            <flux:select wire:model.live="membership_id">
+            <flux:select wire:model.live="form.membership_id">
                 <option value="">Seleccione una membresía</option>
                 @foreach($memberships as $membership)
                     <option value="{{ $membership->id }}">
@@ -53,13 +53,13 @@
                 <flux:label>Fecha de inicio</flux:label>
                 <flux:input 
                     type="date" 
-                    wire:model.live="start_date" />
+                    wire:model="form.start_date" />
             </div>
             <div class="space-y-2">
                 <flux:label>Fecha de fin</flux:label>
                 <flux:input 
                     type="date" 
-                    wire:model="end_date"
+                    wire:model="form.end_date"
                     readonly />
             </div>
         </div>
@@ -73,7 +73,7 @@
                     <flux:input.group.prefix>Bs.</flux:input.group.prefix>
                     <flux:input 
                         type="number" 
-                        wire:model="payment_amount"
+                        wire:model="form.payment_amount"
                         placeholder="Ingrese el monto"
                         readonly />
                 </flux:input.group>
@@ -81,7 +81,7 @@
 
             <div class="space-y-2">
                 <flux:label>Método de pago</flux:label>
-                <flux:select wire:model="payment_method">
+                <flux:select wire:model="form.payment_method">
                     <option value="cash">Efectivo</option>
                     <option value="card">Tarjeta</option>
                     <option value="bank_transfer">Transferencia bancaria</option>
@@ -93,7 +93,7 @@
         <!-- Botón de guardar -->
         <div class="flex justify-end">
             <flux:button  type="button" variant="ghost" href="{{ route('subscriptions.index') }}" navigate>Cancelar</flux:button>
-            <flux:button variant="primary" type="submit" :disabled="!$selectedClient || !$membership_id">
+            <flux:button variant="primary" type="submit" :disabled="!$selectedClient || !$form->membership_id">
                 Crear suscripción
             </flux:button>
         </div>

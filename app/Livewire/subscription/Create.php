@@ -7,32 +7,25 @@ use App\Models\Client;
 use Livewire\Component;
 use App\Models\Membership;
 use Livewire\Attributes\On;
-use App\Models\Subscription;
 use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toastable;
+use App\Livewire\Forms\SubscriptionForm;
 
 class Create extends Component
 {
     use Toastable;
 
+    public SubscriptionForm $form;
+
     public $ci;
-    public $client_id;
-    public $membership_id;
-    public $start_date;
-    public $end_date;
     public $selectedClient = null;
     public $memberships = [];
     public $currentGym;
 
-    public $payment_method = 'cash';
-    public $payment_status = 'paid';
-    public $payment_amount;
-    public $payment_notes;
-
     public function mount()
     {
         $this->currentGym = auth()->user()->getCurrentGym();
-        $this->start_date = now()->format('Y-m-d');
+        $this->form->start_date = now()->format('Y-m-d');
         $this->loadMemberships();
     }
 
@@ -53,9 +46,9 @@ class Create extends Component
                 ->first();
 
             if ($this->selectedClient) {
-                $this->client_id = $this->selectedClient->id;
+                $this->form->client_id = $this->selectedClient->id;
             } else {
-                $this->client_id = null;
+                $this->form->client_id = null;
             }
         }
     }
@@ -68,65 +61,42 @@ class Create extends Component
     public function clientCreated()
     {
         $this->selectedClient = Client::where('ci', $this->ci)->first();
-        $this->client_id = $this->selectedClient->id;
+        $this->form->client_id = $this->selectedClient->id;
     }
 
     public function deselectClient()
     {
         $this->selectedClient = null;
-        $this->client_id = null;
+        $this->form->client_id = null;
         $this->ci = '';
     }
 
-    public function updatedMembershipId($value)
+    public function updatedFormMembershipId($value)
     {
         if ($value) {
             $membership = Membership::find($value);
             if ($membership) {
-                $this->end_date = Carbon::parse($this->start_date)
+                $this->form->end_date = Carbon::parse($this->form->start_date)
                     ->addDays($membership->duration)
                     ->format('Y-m-d');
 
-                $this->payment_amount = $membership->price;
+                $this->form->payment_amount = $membership->price;
             }
         }
     }
 
-    public function updatedStartDate($value)
+    public function updatedFormStartDate($value)
     {
-        if ($this->membership_id) {
-            $this->updatedMembershipId($this->membership_id);
+        if ($this->form->membership_id) {
+            $this->updatedFormMembershipId($this->form->membership_id);
         }
     }
 
     public function save()
     {
-        $this->validate([
-            'client_id' => 'required|exists:clients,id',
-            'membership_id' => 'required|exists:memberships,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-        ]);
+        $membership = $this->memberships->firstWhere('id', $this->form->membership_id);
 
-        $membership = $this->memberships->firstWhere('id', $this->membership_id);
-
-        $subscription = Subscription::create([
-            'client_id' => $this->client_id,
-            'membership_id' => $this->membership_id,
-            'gym_id' => $this->currentGym->id,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-            'price' => $membership->price,
-            'created_by' => auth()->user()->name,
-            'updated_by' => auth()->user()->name,
-        ]);
-
-        $subscription->addPayment([
-            'amount' => $this->payment_amount,
-            'method' => $this->payment_method,
-            'status' => $this->payment_status,
-            'notes' => $this->payment_notes,
-        ]);
+        $this->form->store($this->currentGym->id, $membership);
 
         $this->info('Suscripción creada correctamente');
 
