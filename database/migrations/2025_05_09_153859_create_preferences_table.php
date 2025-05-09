@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_preferences', function (Blueprint $table) {
+        Schema::create('preferences', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('key')->unique();
             $table->text('value')->nullable();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->uuidMorphs('preferable');
             $table->timestamps();
-            
-            // Un usuario no puede tener la misma clave de preferencia duplicada
-            $table->unique(['user_id', 'key']);
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_preferences');
+        Schema::dropIfExists('preferences');
     }
 };

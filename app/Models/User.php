@@ -9,15 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use App\Traits\HasPreferences;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasUuids, Notifiable, HasRoles;
+    use HasFactory, HasUuids, Notifiable, HasRoles, HasPreferences;
 
     /**
      * The attributes that are mass assignable.
@@ -101,42 +100,6 @@ class User extends Authenticatable
     public function isStaffOfGym(Gym $gym): bool
     {
         return $this->staffGym->id === $gym->id;
-    }
-
-    /**
-     * Get the user's preferences.
-     */
-    public function preferences(): HasMany
-    {
-        return $this->hasMany(UserPreference::class);
-    }
-
-    /**
-     * Get a specific preference value.
-     */
-    public function getPreference(string $key, $default = null)
-    {
-        $cacheKey = "user.{$this->id}.preference.{$key}";
-        
-        return Cache::remember($cacheKey, now()->addHours(24), function () use ($key, $default) {
-            $preference = $this->preferences()->where('key', $key)->first();
-            return $preference ? $preference->value : $default;
-        });
-    }
-
-    /**
-     * Set a preference value.
-     */
-    public function setPreference(string $key, $value): void
-    {
-        $cacheKey = "user.{$this->id}.preference.{$key}";
-        
-        $this->preferences()->updateOrCreate(
-            ['key' => $key],
-            ['value' => $value]
-        );
-        
-        Cache::forget($cacheKey);
     }
 
     /**

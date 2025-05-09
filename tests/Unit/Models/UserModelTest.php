@@ -2,7 +2,7 @@
 
 use App\Models\Gym;
 use App\Models\User;
-use App\Models\UserPreference;
+use App\Models\Preference;
 
 test('User has many gyms', function () {
     $user = User::factory()->create();
@@ -32,19 +32,19 @@ test('User can check if they own a gym', function () {
 
 test('user has preferences', function () {
     $user = User::factory()->create();
-    $preference = UserPreference::create([
-        'user_id' => $user->id,
+    $user->preferences()->create([
+        'preferable_id' => $user->id,
         'key' => 'test',
         'value' => 'test',
     ]);
 
-    expect($user->preferences->first())->toBeInstanceOf(UserPreference::class);
+    expect($user->preferences->first())->toBeInstanceOf(Preference::class);
 });
 
 test('user can get a preference', function () {
     $user = User::factory()->create();
-    $preference = UserPreference::create([
-        'user_id' => $user->id,
+    $user->preferences()->create([
+        'preferable_id' => $user->id,
         'key' => 'test',
         'value' => 'test value',
     ]);
