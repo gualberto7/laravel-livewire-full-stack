@@ -24,6 +24,11 @@ class Create extends Component
     public $memberships = [];
     public $currentGym;
 
+    public $payment_method = 'cash';
+    public $payment_status = 'paid';
+    public $payment_amount;
+    public $payment_notes;
+
     public function mount()
     {
         $this->currentGym = auth()->user()->getCurrentGym();
@@ -81,6 +86,8 @@ class Create extends Component
                 $this->end_date = Carbon::parse($this->start_date)
                     ->addDays($membership->duration)
                     ->format('Y-m-d');
+
+                $this->payment_amount = $membership->price;
             }
         }
     }
@@ -114,7 +121,12 @@ class Create extends Component
             'updated_by' => auth()->user()->name,
         ]);
 
-        $subscription->addPayment();
+        $subscription->addPayment([
+            'amount' => $this->payment_amount,
+            'method' => $this->payment_method,
+            'status' => $this->payment_status,
+            'notes' => $this->payment_notes,
+        ]);
 
         $this->info('Suscripción creada correctamente');
 

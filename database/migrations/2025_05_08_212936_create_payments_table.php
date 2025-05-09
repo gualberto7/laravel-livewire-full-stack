@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuidMorphs('payable');
+            $table->decimal('amount', 10, 2);
             $table->enum('method', ['cash', 'card', 'bank_transfer', 'cheque'])->default('cash');
             $table->enum('status', ['pending', 'paid', 'failed'])->default('pending');
             $table->string('notes')->nullable();

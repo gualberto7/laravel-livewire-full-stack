@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Client;
+use App\Models\Subscription;
 use App\Livewire\Subscription\Create;
 
 test('verify create subscription component', function () {
@@ -32,6 +33,27 @@ test('verify create subscription successfully', function () {
         'client_id' => $client->id,
         'membership_id' => $data['membership']->id,
         'gym_id' => $data['gym']->id,
+    ]);
+});
+
+test('verify create subscription with payment', function () {
+    $data = createUserGymMembership('gym-owner');
+    $client = Client::factory()->create(['gym_id' => $data['gym']->id]);
+
+    Livewire::actingAs($data['user'])
+        ->test(Create::class)
+        ->set('client_id', $client->id)
+        ->set('membership_id', $data['membership']->id)
+        ->set('start_date', now()->addDays(1))
+        ->set('end_date', now()->addDays(30))
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $subscription = Subscription::where('client_id', $client->id)->first();
+
+    $this->assertDatabaseHas('payments', [
+        'payable_id' => $subscription->id,
+        'payable_type' => Subscription::class,
     ]);
 });
 

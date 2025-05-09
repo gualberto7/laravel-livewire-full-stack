@@ -64,6 +64,32 @@
             </div>
         </div>
 
+        <!-- Pago -->
+        <flux:heading size="lg">Información de pago</flux:heading>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+                <flux:label>Monto</flux:label>
+                    <flux:input.group>
+                    <flux:input.group.prefix>Bs.</flux:input.group.prefix>
+                    <flux:input 
+                        type="number" 
+                        wire:model="payment_amount"
+                        placeholder="Ingrese el monto"
+                        readonly />
+                </flux:input.group>
+            </div>
+
+            <div class="space-y-2">
+                <flux:label>Método de pago</flux:label>
+                <flux:select wire:model="payment_method">
+                    <option value="cash">Efectivo</option>
+                    <option value="card">Tarjeta</option>
+                    <option value="bank_transfer">Transferencia bancaria</option>
+                    <option value="cheque">Cheque</option>
+                </flux:select>
+            </div>
+        </div>
+
         <!-- Botón de guardar -->
         <div class="flex justify-end">
             <flux:button  type="button" variant="ghost" href="{{ route('subscriptions.index') }}" navigate>Cancelar</flux:button>

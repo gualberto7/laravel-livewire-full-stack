@@ -12,10 +12,10 @@ trait HasPayments
         return $this->morphMany(Payment::class, 'payable');
     }
 
-    public function addPayment(Payment $payment = null): void
+    public function addPayment($payment = null): void
     {
         if ($payment) {
-            $this->payments()->create($payment->toArray());
+            $this->payments()->create($payment);
         } else {
             $this->payments()->create([
                 'method' => 'cash',
