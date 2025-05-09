@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasPayments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,8 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
-    /** @use HasFactory<\Database\Factories\SubscriptionFactory> */
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, HasPayments;
 
     protected $fillable = [
         'client_id',
