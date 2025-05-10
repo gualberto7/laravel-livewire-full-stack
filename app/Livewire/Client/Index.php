@@ -5,17 +5,17 @@ namespace App\Livewire\Client;
 use App\Models\Client;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\HasCurrentGym;
 use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WithPagination, HasCurrentGym;
 
     public $search = '';
     public $sortField = 'name';
     public $sortDirection = 'asc';
     public $perPage = 15;
-    public $currentGym;
     public $subscriptionStatus = 'all';
 
     protected $queryString = [
@@ -25,11 +25,6 @@ class Index extends Component
         'page' => ['except' => 1],
         'subscriptionStatus' => ['except' => 'all'],
     ];
-
-    public function mount()
-    {
-        $this->currentGym = auth()->user()->getCurrentGym();
-    }
 
     public function sortBy($field)
     {
