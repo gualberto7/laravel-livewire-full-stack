@@ -6,7 +6,7 @@ trait HasCurrentGym
 {
     public $currentGym;
 
-    public function mount()
+    public function initializeCurrentGym()
     {
         $this->currentGym = app('current-gym');
     }

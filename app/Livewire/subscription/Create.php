@@ -7,24 +7,24 @@ use App\Models\Client;
 use Livewire\Component;
 use App\Models\Membership;
 use Livewire\Attributes\On;
+use App\Traits\HasCurrentGym;
 use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toastable;
 use App\Livewire\Forms\SubscriptionForm;
 
 class Create extends Component
 {
-    use Toastable;
+    use Toastable, HasCurrentGym;
 
     public SubscriptionForm $form;
 
     public $ci;
     public $selectedClient = null;
     public $memberships = [];
-    public $currentGym;
 
     public function mount()
     {
-        $this->currentGym = auth()->user()->getCurrentGym();
+        $this->initializeCurrentGym();
         $this->form->start_date = now()->format('Y-m-d');
         $this->loadMemberships();
     }

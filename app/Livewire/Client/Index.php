@@ -26,6 +26,11 @@ class Index extends Component
         'subscriptionStatus' => ['except' => 'all'],
     ];
 
+    public function mount()
+    {
+        $this->initializeCurrentGym();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
