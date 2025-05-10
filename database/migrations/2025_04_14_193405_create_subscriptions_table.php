@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('created_by');
             $table->string('updated_by');
-            $table->string('price');
+            $table->decimal('price', 10, 2);
             $table->boolean('payment_completed')->default(true);
             $table->string('notes')->nullable();
             $table->foreignUuid('client_id')->constrained();
