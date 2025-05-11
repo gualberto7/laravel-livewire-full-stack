@@ -21,9 +21,9 @@ test('verify create membership successfully', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('name', 'Membresía de prueba')
-        ->set('price', 100)
-        ->set('duration', 30)
+        ->set('form.name', 'Membresía de prueba')
+        ->set('form.price', 100)
+        ->set('form.duration', 30)
         ->call('save');
 
     $this->assertDatabaseHas('memberships', [
