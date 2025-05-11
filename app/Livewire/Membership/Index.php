@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Membership;
 
 use Livewire\Component;
 use App\Models\Membership;
+use App\Traits\HasCurrentGym;
 
-class Memberships extends Component
+class Index extends Component
 {
-    public $currentGym;
+    use HasCurrentGym;
+
     public $memberships;
 
     public function mount()
     {
-        $this->currentGym = auth()->user()->getCurrentGym();
+        $this->initializeCurrentGym();
         $this->memberships = Membership::where('gym_id', $this->currentGym->id)->get();
     }
 
     public function render()
     {
-        return view('livewire.memberships');
+        return view('livewire.membership.index');
     }
 }

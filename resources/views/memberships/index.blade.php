@@ -9,7 +9,7 @@
             </div>
         </div>
         <div>
-            <livewire:memberships />
+            <livewire:membership.index />
         </div>
     </div>
 </x-layouts.app>
