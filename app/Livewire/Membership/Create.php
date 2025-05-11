@@ -15,7 +15,7 @@ class Create extends Component
     #[Rule('required|string|max:255')]
     public $name = '';
 
-    #[Rule('required|string|max:255')]
+    #[Rule('required|numeric|min:0')]
     public $price = '';
 
     #[Rule('required|integer|min:1')]
@@ -60,11 +60,6 @@ class Create extends Component
         ]);
 
         $membership->save();
-
-        $this->dispatch('notify', [
-            'message' => 'Membresía creada exitosamente',
-            'type' => 'success',
-        ]);
 
         $this->redirect(route('memberships.index'), navigate: true);
     }
