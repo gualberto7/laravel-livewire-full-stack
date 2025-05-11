@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Subscription;
 
-use Flux\Flux;
-use App\Models\Client;
 use Livewire\Component;
 use App\Models\Membership;
 use Livewire\Attributes\On;
@@ -18,7 +16,6 @@ class Create extends Component
 
     public SubscriptionForm $form;
 
-    public $ci;
     public $selectedClient = null;
     public $memberships = [];
 
@@ -38,37 +35,18 @@ class Create extends Component
         }
     }
 
-    public function searchClient()
+    #[On('client-selected')]
+    public function handleClientSelected($client)
     {
-        if (strlen($this->ci) >= 6) {
-            $this->selectedClient = Client::where('gym_id', $this->currentGym->id)
-                ->where('ci', 'like', '%' . $this->ci . '%')
-                ->first();
-
-            if ($this->selectedClient) {
-                $this->form->client_id = $this->selectedClient->id;
-            } else {
-                $this->form->client_id = null;
-            }
-        }
+        $this->selectedClient = $client;
+        $this->form->client_id = $client['id'];
     }
 
-    public function openModal()
-    {
-        Flux::modal('create-client')->show();
-    }
-
-    public function clientCreated()
-    {
-        $this->selectedClient = Client::where('ci', $this->ci)->first();
-        $this->form->client_id = $this->selectedClient->id;
-    }
-
-    public function deselectClient()
+    #[On('client-deselected')]
+    public function handleClientDeselected()
     {
         $this->selectedClient = null;
         $this->form->client_id = null;
-        $this->ci = '';
     }
 
     public function updatedFormMembershipId($value)
