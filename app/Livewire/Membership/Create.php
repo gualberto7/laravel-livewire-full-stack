@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Membership;
 
-use App\Models\Membership;
 use Livewire\Component;
+use App\Models\Membership;
 use Livewire\Attributes\Rule;
+use App\Traits\HasCurrentGym;
+use Masmerise\Toaster\Toastable;
 
-class MembershipForm extends Component
+class Create extends Component
 {
+    use Toastable, HasCurrentGym;
+
     #[Rule('required|string|max:255')]
     public $name = '';
 
@@ -32,11 +36,9 @@ class MembershipForm extends Component
     #[Rule('nullable|date|required_if:is_promo,true|after_or_equal:promo_start_date')]
     public $promo_end_date = null;
 
-    public $currentGym;
-
     public function mount()
     {
-        $this->currentGym = auth()->user()->getCurrentGym();
+        $this->initializeCurrentGym();
     }
 
     public function save()
@@ -69,6 +71,6 @@ class MembershipForm extends Component
 
     public function render()
     {
-        return view('livewire.membership-form');
+        return view('livewire.membership.create');
     }
 } 

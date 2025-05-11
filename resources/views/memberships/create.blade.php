@@ -6,7 +6,7 @@
             </div>
         </div>
         <div>
-            <livewire:membership-form />
+            <livewire:membership.create />
         </div>
     </div>
 </x-layouts.app>
