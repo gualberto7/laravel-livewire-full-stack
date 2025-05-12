@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Membership;
 use Livewire\Volt\Volt;
 use App\Models\Client;
 use App\Models\User;
@@ -44,6 +45,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', function () {
             return view('memberships.create');
         })->name('create');
+
+        Route::get('/{membership}/edit', function (Membership $membership) {
+            return view('memberships.edit', compact('membership'));
+        })->name('edit');
     });
 
     Route::prefix('staff')->name('staff.')->middleware(['can:manage gym staff'])->group(function () {

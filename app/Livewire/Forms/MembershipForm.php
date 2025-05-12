@@ -32,6 +32,18 @@ class MembershipForm extends Form
     #[Validate('nullable|date|required_if:is_promo,true|after_or_equal:promo_start_date')]
     public $promo_end_date = null;
 
+    public function setMembership(Membership $membership)
+    {
+        $this->name = $membership->name;
+        $this->price = $membership->price;
+        $this->duration = $membership->duration;
+        $this->max_checkins = $membership->max_checkins;
+        $this->description = $membership->description;
+        $this->is_promo = $membership->is_promo;
+        $this->promo_start_date = $membership->promo_start_date;
+        $this->promo_end_date = $membership->promo_end_date;
+    }
+
     public function store($gymId)
     {
         $this->validate();
@@ -39,6 +51,15 @@ class MembershipForm extends Form
         Membership::create($this->all() + [
             'gym_id' => $gymId,
             'created_by' => auth()->user()->name,
+            'updated_by' => auth()->user()->name,
+        ]);
+    }
+
+    public function update(Membership $membership)
+    {
+        $this->validate();
+
+        $membership->update($this->all() + [
             'updated_by' => auth()->user()->name,
         ]);
     }
