@@ -16,9 +16,9 @@ class Client extends Model
 
     protected $guarded = [];
 
-    public function subscriptions(): HasMany
+    public function subscriptions(): BelongsToMany
     {
-        return $this->hasMany(Subscription::class);
+        return $this->belongsToMany(Subscription::class);
     }
 
     /**

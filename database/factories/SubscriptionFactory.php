@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Membership;
-use App\Models\Client;
 use App\Models\Gym;
 
 /**
@@ -24,7 +23,6 @@ class SubscriptionFactory extends Factory
             'end_date' => now()->addDays(30),
             'price' => '100',
             'membership_id' => Membership::factory(),
-            'client_id' => Client::factory(),
             'gym_id' => Gym::factory(),
             'created_by' => 'seeder',
             'updated_by' => 'seeder',

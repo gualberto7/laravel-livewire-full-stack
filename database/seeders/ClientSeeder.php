@@ -14,7 +14,7 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        $gym = Gym::first();
+        $gym = Gym::where('email', 'gym@test.com')->first();
 
         Client::factory(50)->create([
             'gym_id' => $gym->id,

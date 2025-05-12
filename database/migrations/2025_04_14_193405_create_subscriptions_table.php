@@ -20,7 +20,6 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->boolean('payment_completed')->default(true);
             $table->string('notes')->nullable();
-            $table->foreignUuid('client_id')->constrained();
             $table->foreignUuid('membership_id')->constrained();
             $table->foreignUuid('gym_id')->constrained()->onDelete('cascade');
             $table->timestamps();
