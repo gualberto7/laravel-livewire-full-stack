@@ -20,7 +20,23 @@
         @forelse ($memberships as $membership)
             <tr>
                 <x-gc.td variant="strong">
-                    {{ $membership->name }}
+                    @if($membership->is_promo)
+                        <div class="flex flex-col gap-2">
+                            <div>
+                            {{ $membership->name }}
+                                <flux:badge color="teal" size="sm">
+                                    Promoción
+                                </flux:badge>
+                            </div>
+                            <div class="text-sm text-gray-300">
+                                {{ $membership->promo_start_date->format('d/m/Y') }} - {{ $membership->promo_end_date->format('d/m/Y') }}
+                            </div>
+                        </div>
+                    @else
+                        <div>
+                            {{ $membership->name }}
+                        </div>
+                    @endif
                 </x-gc.td>
                 <x-gc.td>
                     {{ $membership->price }} Bs.

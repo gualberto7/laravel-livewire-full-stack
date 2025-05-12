@@ -13,6 +13,11 @@ class Membership extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'promo_start_date' => 'date',
+        'promo_end_date' => 'date',
+    ];
+
     public function gym()
     {
         return $this->belongsTo(Gym::class);

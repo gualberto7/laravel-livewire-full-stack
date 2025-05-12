@@ -3,7 +3,6 @@
 namespace App\Livewire\Membership;
 
 use Livewire\Component;
-use App\Models\Membership;
 use App\Traits\HasCurrentGym;
 
 class Index extends Component
@@ -15,7 +14,7 @@ class Index extends Component
     public function mount()
     {
         $this->initializeCurrentGym();
-        $this->memberships = Membership::where('gym_id', $this->currentGym->id)->get();
+        $this->memberships = $this->currentGym->memberships()->orderBy('price')->get();
     }
 
     public function render()
