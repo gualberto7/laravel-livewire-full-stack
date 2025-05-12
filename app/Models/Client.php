@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
@@ -21,26 +22,16 @@ class Client extends Model
         return $this->belongsToMany(Subscription::class);
     }
 
-    /**
-     * Obtiene los gimnasios a los que el cliente se ha suscrito
-     */
-    public function gyms(): BelongsToMany
+    public function gym(): BelongsTo
     {
-        return $this->belongsToMany(Gym::class, 'client_gym')
-            ->withTimestamps();
+        return $this->belongsTo(Gym::class);
     }
 
-    /**
-     * Obtiene los check-ins del cliente
-     */
     public function checkIns(): HasMany
     {
         return $this->hasMany(CheckIn::class);
     }
 
-    /**
-     * Verifica si el cliente ha hecho check-in hoy en el gimnasio especificado
-     */
     public function hasCheckedInToday($gymId): bool
     {
         return $this->checkIns()
@@ -49,9 +40,6 @@ class Client extends Model
             ->exists();
     }
 
-    /**
-     * Registra un nuevo check-in para el cliente
-     */
     public function checkIn($gymId, $userName): CheckIn
     {
         return $this->checkIns()->create([

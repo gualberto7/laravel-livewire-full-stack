@@ -5,10 +5,11 @@ use App\Models\Client;
 use App\Models\Membership;
 use App\Models\Subscription;
 
-test('subscription belongs to a client', function () {
+test('subscription belongs to many clients', function () {
     $subscription = Subscription::factory()->create();
-
-    expect($subscription->client)->toBeInstanceOf(Client::class);
+    $client = Client::factory()->create();
+    $subscription->clients()->attach($client);
+    expect($subscription->clients->first())->toBeInstanceOf(Client::class);
 });
 
 test('subscription belongs to a membership', function () {

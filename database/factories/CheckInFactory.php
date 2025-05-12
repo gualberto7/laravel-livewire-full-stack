@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Client;
-
+use App\Models\Gym;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CheckIn>
  */
@@ -19,7 +19,7 @@ class CheckInFactory extends Factory
     {
         return [
             'client_id' => Client::factory(),
-            'gym_id' => 1,
+            'gym_id' => Gym::factory(),
             'created_by' => 'seeder',
             'updated_by' => 'seeder',
         ];
