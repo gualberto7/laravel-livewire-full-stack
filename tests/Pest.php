@@ -78,9 +78,8 @@ function createUserGymMembershipAndSubscription($role)
     $client = Client::factory()->create(['name' => 'Client Test', 'gym_id' => $data['gym']->id]);
     $subscription = Subscription::factory()->create([
         'gym_id' => $data['gym']->id,
-        'client_id' => $client->id,
         'membership_id' => $data['membership']->id,
     ]);
-
+    $client->subscriptions()->attach($subscription);
     return array_merge($data, compact('client', 'subscription'));
 }

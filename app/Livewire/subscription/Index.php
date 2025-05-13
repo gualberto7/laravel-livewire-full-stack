@@ -70,10 +70,10 @@ class Index extends Component
         }
 
         $subscriptions = Subscription::query()
-            ->with(['client', 'membership'])
+            ->with(['clients', 'membership'])
             ->where('gym_id', $this->currentGym->id)
             ->when($this->search, function ($query) {
-                $query->whereHas('client', function ($q) {
+                $query->whereHas('clients', function ($q) {
                     $q->where('name', 'like', '%' . $this->search . '%');
                 })
                 ->orWhereHas('membership', function ($q) {

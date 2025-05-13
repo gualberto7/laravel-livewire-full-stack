@@ -36,7 +36,7 @@ class MembershipForm extends Form
     public $max_clients = 1;
 
     #[Validate('nullable|integer|min:1')]
-    public $max_installments = null;
+    public $max_installments = 1;
 
     public function setMembership(Membership $membership)
     {

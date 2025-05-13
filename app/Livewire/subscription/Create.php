@@ -74,7 +74,12 @@ class Create extends Component
     {
         $membership = $this->memberships->firstWhere('id', $this->form->membership_id);
 
-        $this->form->store($this->currentGym->id, $membership);
+        if (!$membership) {
+            $this->error('Por favor seleccione una membresía válida');
+            return;
+        }
+
+        $this->form->store($this->currentGym->id, $membership->price);
 
         $this->info('Suscripción creada correctamente');
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Form;
+use App\Models\Client;
 use App\Models\Subscription;
 use Livewire\Attributes\Validate;
 
@@ -20,27 +21,22 @@ class SubscriptionForm extends Form
     #[Validate('required|date|after:start_date', 'fecha de fin')]
     public $end_date;
 
-    public $payment_method = 'cash';
-    public $payment_status = 'paid';
+    #[Validate('required|numeric|min:0', 'monto')]
     public $payment_amount;
-    public $payment_notes;
-    
-    public function store($gymId, $membership)
+
+    public function store($gymId, $membershipPrice)
     {
         $this->validate();
 
-        $subscription = Subscription::create($this->all() + [
+        $subscription = Subscription::create([
+            'client_id' => $this->client_id,
+            'membership_id' => $this->membership_id,
             'gym_id' => $gymId,
-            'price' => $membership->price,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'price' => $membershipPrice,
             'created_by' => auth()->user()->name,
             'updated_by' => auth()->user()->name,
-        ]);
-
-        $subscription->addPayment([
-            'amount' => $this->payment_amount,
-            'method' => $this->payment_method,
-            'status' => $this->payment_status,
-            'notes' => $this->payment_notes,
         ]);
 
         return $subscription;

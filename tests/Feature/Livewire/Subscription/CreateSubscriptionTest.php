@@ -22,7 +22,7 @@ test('verify create subscription successfully', function () {
 
     Livewire::actingAs($data['user'])
         ->test(Create::class)
-        ->set('form.client_id', $client->id)
+        ->set('selectedClient', $client)
         ->set('form.membership_id', $data['membership']->id)
         ->set('form.start_date', now()->addDays(1))
         ->set('form.end_date', now()->addDays(30))
@@ -49,7 +49,7 @@ test('verify create subscription with payment', function () {
         ->call('save')
         ->assertHasNoErrors();
 
-    $subscription = Subscription::where('client_id', $client->id)->first();
+    $subscription = $client->subscriptions()->first();
 
     $this->assertDatabaseHas('payments', [
         'payable_id' => $subscription->id,

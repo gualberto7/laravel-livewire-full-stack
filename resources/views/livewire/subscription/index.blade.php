@@ -47,8 +47,8 @@
         @forelse ($subscriptions as $subscription)
             <tr>
                 <x-gc.td variant="strong">
-                    <flux:link :href="route('clients.show', $subscription->client->id)">
-                        {{ $subscription->client->name }}
+                    <flux:link :href="route('clients.show', $subscription->clients->first()->id)">
+                        {{ $subscription->clients->first()->name }}
                     </flux:link>
                 </x-gc.td>
                 <x-gc.td>
@@ -65,7 +65,7 @@
                 <x-gc.td>
                     <flux:button
                         size="sm"
-                        wire:click="registerCheckIn('{{ $subscription->client->id }}')"
+                        wire:click="registerCheckIn('{{ $subscription->clients->first()->id }}')"
                         :disabled="$subscription->getStatus() !== 'activa'"
                     >
                         Registrar entrada

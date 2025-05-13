@@ -10,7 +10,7 @@ test('verify create membership component', function () {
         ->assertSee('Nombre')
         ->assertSee('Precio')
         ->assertSee('Duración')
-        ->assertSee('Entradas máximas')
+        ->assertSee('Máximo de entradas')
         ->assertSee('Descripción')
         ->assertSee('Es una promoción')
         ->assertSee('Crear membresía');

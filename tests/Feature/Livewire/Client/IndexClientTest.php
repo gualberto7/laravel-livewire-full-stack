@@ -66,22 +66,21 @@ test('verify active / expired filters', function () {
     ]);
 
     // Create an active subscription for the client
-    Subscription::factory()->create([
+    $subscription = Subscription::factory()->create([
         'gym_id' => $data['gym']->id,
         'membership_id' => $data['membership']->id,
-        'client_id' => $client->id,
         'start_date' => now(),
         'end_date' => now()->addDays(30),
     ]);
+    $client->subscriptions()->attach($subscription);
 
-    // Create an expired subscription for the client
-    Subscription::factory()->create([
+    $expiredSubscription = Subscription::factory()->create([
         'gym_id' => $data['gym']->id,
         'membership_id' => $data['membership']->id,
-        'client_id' => $client->id,
         'start_date' => now()->subDays(30),
         'end_date' => now()->subDays(1),
     ]);
+    $client->subscriptions()->attach($expiredSubscription);
 
     $response = Livewire::actingAs($data['user'])
         ->test(Index::class)
